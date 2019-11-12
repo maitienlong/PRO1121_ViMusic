@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ViMusic</string>
+    <string name="title_thuvien">Thư viện</string>
+    <string name="title_yeuthich">Yêu thích</string>
+    <string name="title_khampha">Khám phá</string>
+    <string name="title_search">Tìm kiếm</string>
+</resources>

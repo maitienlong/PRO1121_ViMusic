@@ -1,0 +1,74 @@
+package com.example.vimusic.dao;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.example.vimusic.database.SongReadDatabase;
+import com.example.vimusic.model.BaiHat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.vimusic.database.SongReadDatabase.C_ALBUM;
+import static com.example.vimusic.database.SongReadDatabase.C_ARTIST;
+import static com.example.vimusic.database.SongReadDatabase.C_LOACTION;
+import static com.example.vimusic.database.SongReadDatabase.C_TITLE;
+import static com.example.vimusic.database.SongReadDatabase.T_SONG;
+
+public class BaiHatDAO {
+
+    private SongReadDatabase songReadDatabase;
+
+    public BaiHatDAO(Context context) {
+        songReadDatabase = new SongReadDatabase(context);
+    }
+
+    public long insertBook(BaiHat baiHat) {
+        SQLiteDatabase sqLiteDatabase = songReadDatabase.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(C_LOACTION, baiHat.location);
+        contentValues.put(C_TITLE, baiHat.title);
+        contentValues.put(C_ARTIST, baiHat.artist);
+        contentValues.put(C_ALBUM, baiHat.album);
+
+        long result = sqLiteDatabase.insert(T_SONG, null, contentValues);
+
+        sqLiteDatabase.close();
+
+        return result;
+    }
+
+
+    //------------------------------------------------ LẤY DS THỂ LOẠI  -------------------------------------------------------
+
+    public List<BaiHat> getAllSong() {
+
+        List<BaiHat> baiHatList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = songReadDatabase.getReadableDatabase();
+
+        String SELECT = "SELECT * FROM " + T_SONG;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT, null);
+        if (cursor.moveToFirst()) {
+            do {
+                BaiHat baiHat = new BaiHat();
+                baiHat.location = cursor.getString(0);
+                baiHat.title = cursor.getString(1);
+                baiHat.artist = cursor.getString(2);
+                baiHat.album = cursor.getString(3);
+
+                baiHatList.add(baiHat);
+            } while (cursor.moveToNext());
+        }
+
+        sqLiteDatabase.close();
+
+        return baiHatList;
+    }
+
+}
