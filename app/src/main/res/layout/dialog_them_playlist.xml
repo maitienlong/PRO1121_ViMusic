@@ -47,7 +47,8 @@
         android:layout_height="60dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:textColorHint="#fff">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtNamePlaylist"
@@ -57,7 +58,8 @@
             android:layout_marginRight="8dp"
             android:hint="Tên playlist"
             android:inputType="textFilter"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textColorHint="#fff" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -76,7 +78,8 @@
             android:layout_height="100dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="8dp">
+            android:layout_marginRight="8dp"
+            android:textColorHint="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtDetailPlaylist"
@@ -86,7 +89,8 @@
                 android:layout_marginRight="8dp"
                 android:hint="Mô tả playlist"
                 android:inputType="textFilter"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
