@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fdcb6e"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:padding="8dp"
+        android:src="@drawable/music_note"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+    <TextView
+        android:textColor="#fff"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="25sp"
+        android:text="KHÔNG PHÁT"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:padding="8dp"
+        android:src="@drawable/play"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+</LinearLayout>

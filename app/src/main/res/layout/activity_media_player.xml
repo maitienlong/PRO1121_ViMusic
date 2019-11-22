@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000"
+    tools:context=".MediaPlayerActivity">
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:onClick="btndown"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="160dp"
+            android:padding="8dp"
+            android:src="@drawable/btn_down" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:src="@drawable/alarm_clock" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:src="@drawable/heart" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:src="@drawable/btn_more" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="32dp"
+        android:padding="8dp"
+        android:src="@drawable/status_defau" />
+
+    <TextView
+        android:id="@+id/tvPlayerTenBaiHat"
+        android:textColor="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TEN BAI HAT"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvPlayerTenCaSi"
+        android:textColor="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="TEN CA SI"
+        android:textSize="20dp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="30sp" />
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
+            android:src="@drawable/add_list" />
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
+            android:src="@drawable/play_lui" />
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
+            android:src="@drawable/play_button" />
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
+            android:src="@drawable/play_tien" />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="8dp"
+            android:src="@drawable/loop" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="30sp" />
+
+
+</LinearLayout>

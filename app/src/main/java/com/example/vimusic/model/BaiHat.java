@@ -5,4 +5,5 @@ public class BaiHat {
     public String title;
     public String artist;
     public String album;
+    public boolean love;
 }

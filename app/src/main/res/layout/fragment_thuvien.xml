@@ -2,53 +2,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="#000"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="40dp"
-        android:textColor="@color/colorWhile"
-        android:fontFamily="@font/sfdbold"
-        android:text="Thư viện"
-        android:textSize="38sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfdbold"
+            android:text="Thư viện"
+            android:textColor="@color/colorWhile"
+            android:textSize="38sp" />
+
+        <ImageView
+            android:id="@+id/btnScanSongTV"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="150dp"
+            android:padding="8dp"
+            android:src="@drawable/btn_scan_re" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/btnOpenPlaylist"
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="16dp"
-        android:text="Playlist"
-        android:textSize="26sp"
-        android:textColor="@color/colorText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center_vertical"
+        android:text="Playlist"
+        android:textColor="@color/colorText"
+        android:textSize="26sp" />
+
     <TextView
         android:id="@+id/btnOpenNgheSi"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Nghệ sĩ"
-        android:textSize="26sp"
-        android:textColor="@color/colorText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Nghệ sĩ"
+        android:textColor="@color/colorText"
+        android:textSize="26sp" />
+
     <TextView
         android:id="@+id/btnOpenAlbum"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Album"
-        android:textSize="26sp"
-        android:textColor="@color/colorText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Album"
+        android:textColor="@color/colorText"
+        android:textSize="26sp" />
+
     <TextView
         android:id="@+id/btnOpenBaiHat"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Bài hát"
-        android:textSize="26sp"
-        android:textColor="@color/colorText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Bài hát"
+        android:textColor="@color/colorText"
+        android:textSize="26sp" />
 </LinearLayout>

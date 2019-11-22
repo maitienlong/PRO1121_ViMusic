@@ -33,6 +33,7 @@
                 android:id="@+id/edtLIUsername"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:inputType="textFilter"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:hint="Tìm kiếm bài hát hoặc nghệ sĩ"
