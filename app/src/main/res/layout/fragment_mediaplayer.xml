@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#000"
-    tools:context=".MediaPlayerActivity">
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_marginTop="8dp"
@@ -19,23 +17,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="160dp"
+            android:layout_marginRight="280dp"
             android:padding="8dp"
             android:src="@drawable/btn_down" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            android:src="@drawable/alarm_clock" />
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            android:src="@drawable/heart" />
 
         <ImageView
             android:layout_width="50dp"
@@ -49,7 +34,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30sp"
         android:layout_marginBottom="32dp"
         android:padding="8dp"
         android:src="@drawable/status_defau" />
@@ -91,21 +76,24 @@
             android:layout_marginRight="8dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:padding="8dp"
-            android:src="@drawable/add_list" />
+            android:padding="18dp"
+            android:src="@drawable/heart" />
         <ImageView
+            android:id="@+id/btnReBack"
             android:layout_marginRight="8dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="8dp"
             android:src="@drawable/play_lui" />
         <ImageView
+            android:id="@+id/btnPlay"
             android:layout_marginRight="8dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:padding="8dp"
             android:src="@drawable/play_button" />
         <ImageView
+            android:id="@+id/btnForward"
             android:layout_marginRight="8dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -114,7 +102,7 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:padding="8dp"
+            android:padding="18dp"
             android:src="@drawable/loop" />
 
     </LinearLayout>

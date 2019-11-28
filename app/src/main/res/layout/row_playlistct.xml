@@ -19,6 +19,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="8dp"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:text="TÊN BÀI HÁT"
         android:textSize="20sp" />
 

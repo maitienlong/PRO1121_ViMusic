@@ -1,15 +1,15 @@
-package com.example.vimusic;
+package com.example.vimusic.mainactivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import com.example.vimusic.ui.NavPlayerFragment;
+import com.example.vimusic.R;
+import com.example.vimusic.ui.mediaplayer.MediaPlayerFragment;
 import com.example.vimusic.ui.khampha.KhamPhaFragment;
 import com.example.vimusic.ui.lovelist.LoveSongFragment;
 import com.example.vimusic.ui.search.TimKiemFragment;
-import com.example.vimusic.ui.thuvien.ThuVienFragment;
+import com.example.vimusic.ui.thuvien.library.ThuVienFragment;
+import com.example.vimusic.ui.thuvien.song.BaiHatFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -18,17 +18,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
     private ThuVienFragment thuVienFragment;
-    private NavPlayerFragment navPlayerFragment;
     private BottomSheetBehavior bottomSheetBehavior;
     private CardView bottom_nav_player;
+    private MediaPlayerFragment mediaPlayerFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +42,11 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         thuVienFragment = new ThuVienFragment();
-        navPlayerFragment = new NavPlayerFragment();
+        mediaPlayerFragment = new MediaPlayerFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, thuVienFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_nav_player);
-
-
 
     }
 
@@ -80,5 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
 
 }

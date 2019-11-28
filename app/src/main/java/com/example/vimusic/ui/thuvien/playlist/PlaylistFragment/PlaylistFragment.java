@@ -1,7 +1,6 @@
-package com.example.vimusic.ui.thuvien;
+package com.example.vimusic.ui.thuvien.playlist.PlaylistFragment;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,10 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vimusic.MediaPlayerActivity;
 import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.adapter.AdapterRecyclerViewPlayList;
@@ -33,13 +32,16 @@ import com.example.vimusic.dao.PlayListDAO;
 import com.example.vimusic.model.BaiHat;
 import com.example.vimusic.model.PlayList;
 import com.example.vimusic.model.PlayListChiTiet;
+import com.example.vimusic.ui.thuvien.library.ThuVienFragment;
+import com.example.vimusic.ui.thuvien.playlist.PlaylistTFragment.PlayListCTFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistFragment extends Fragment {
+public class PlaylistFragment extends Fragment implements PlaylistView {
 
     private ThuVienFragment thuVienFragment;
+    private PlayListCTFragment playListCTFragment;
 
     private ImageView btnthemplaylistbig;
     private ImageView btnthemplaylistsmall;
@@ -57,6 +59,8 @@ public class PlaylistFragment extends Fragment {
     private AdapterRecyclerViewPlayListCT adapterRecyclerViewPlayListCT;
     private AdapterRecyclerViewPlayList adapterRecyclerViewPlayList;
     private LinearLayoutManager linearLayoutManager;
+
+    private PlaylistPresenter playlistPresenter;
 
     List<PlayListChiTiet> playListChiTietList;
     List<PlayList> dovaolist;
@@ -78,12 +82,22 @@ public class PlaylistFragment extends Fragment {
         rvplaylist = view.findViewById(R.id.rvplaylist);
         btnBackPlaylistToThuVien = view.findViewById(R.id.btnBackPlaylistToThuVien);
 
+        playlistPresenter = new PlaylistPresenter(this);
+
         playListDAO = new PlayListDAO(getActivity());
         baiHatDAO = new BaiHatDAO(getActivity());
         playListCTDAO = new PlayListCTDAO(getActivity());
         thuVienFragment = new ThuVienFragment();
+        playListCTFragment = new PlayListCTFragment();
 
 
+        playlistPresenter.BackPlaylistToThuVien();
+        playlistPresenter.CheckShow();
+
+    }
+
+    @Override
+    public void BackPlaylistToThuVien() {
         btnBackPlaylistToThuVien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,18 +105,21 @@ public class PlaylistFragment extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, thuVienFragment).commit();
             }
         });
+    }
 
+    @Override
+    public void CheckShow() {
         final List<PlayList> playListList = playListDAO.checksize();
         playListChiTietList = new ArrayList<>();
 
 
         if (playListList.size() > 0) {
             lnchuacoplaylist.setVisibility(View.GONE);
-            ShowPlayList();
+            playlistPresenter.ShowPlayList();
             btnthemplaylistsmall.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddPlayList();
+                    playlistPresenter.AddPlayList();
                 }
             });
             return;
@@ -110,14 +127,13 @@ public class PlaylistFragment extends Fragment {
             btnthemplaylistbig.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddPlayList();
+                    playlistPresenter.AddPlayList();
                 }
             });
         }
-
-
     }
 
+    @Override
     public void ShowPlayList() {
         dovaolist = playListDAO.getAllPL();
 
@@ -128,8 +144,28 @@ public class PlaylistFragment extends Fragment {
         rvplaylist.setAdapter(adapterRecyclerViewPlayList);
 
         rvplaylist.setLayoutManager(linearLayoutManager);
+        AdapterRecyclerViewPlayList.ItemClickSupport.addTo(rvplaylist).setOnItemClickListener(new AdapterRecyclerViewPlayList.ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                Bundle bundle = new Bundle();
+                String name = dovaolist.get(position).nameplaylist;
+
+                bundle.putString("nameplaylist", name);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                playListCTFragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.fragment_container, playListCTFragment).commit();
+
+
+            }
+        });
     }
 
+    @Override
     public void AddPlayList() {
 
         final Dialog dialog = new Dialog(getActivity());
@@ -301,4 +337,6 @@ public class PlaylistFragment extends Fragment {
             }
         });
     }
+
+
 }

@@ -4,4 +4,5 @@ public class PlayListChiTiet {
     public int idplct;
     public String namepl;
     public String location;
+    public String artist;
 }

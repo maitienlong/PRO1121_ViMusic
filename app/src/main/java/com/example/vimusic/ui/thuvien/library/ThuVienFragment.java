@@ -1,4 +1,4 @@
-package com.example.vimusic.ui.thuvien;
+package com.example.vimusic.ui.thuvien.library;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -29,11 +29,15 @@ import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.ui.thuvien.album.AlbumFragment;
+import com.example.vimusic.ui.thuvien.song.BaiHatFragment;
+import com.example.vimusic.ui.thuvien.artist.NgheSiFragment;
+import com.example.vimusic.ui.thuvien.playlist.PlaylistFragment.PlaylistFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThuVienFragment extends Fragment {
+public class ThuVienFragment extends Fragment implements LibraryView {
 
     private TextView btnOpenPlaylist, btnOpenNgheSi, btnOpenAlbum, btnOpenBaihat;
     private PlaylistFragment playlistFragment;
@@ -41,8 +45,6 @@ public class ThuVienFragment extends Fragment {
     private BaiHatFragment baiHatFragment;
     private AlbumFragment albumFragment;
     private ImageView btnScanSongTV;
-
-
     private BaiHatDAO baiHatDAO;
     private RecyclerView rvSong;
     private AdapterRecyclerViewBaiHat adapterRecyclerViewBaiHat;
@@ -50,6 +52,7 @@ public class ThuVienFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     private static final int MY_PERMISSION_REQUEST = 1;
 
+    private LibraryPresenter libraryPresenter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -69,6 +72,7 @@ public class ThuVienFragment extends Fragment {
         albumFragment = new AlbumFragment();
         baiHatFragment = new BaiHatFragment();
 
+        libraryPresenter = new LibraryPresenter(this);
 
         btnOpenPlaylist = view.findViewById(R.id.btnOpenPlaylist);
         btnOpenNgheSi = view.findViewById(R.id.btnOpenNgheSi);
@@ -77,64 +81,22 @@ public class ThuVienFragment extends Fragment {
         btnScanSongTV = view.findViewById(R.id.btnScanSongTV);
         rvSong = view.findViewById(R.id.rvSong);
 
-        btnOpenPlaylist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, playlistFragment).commit();
-            }
-        });
-
-        btnOpenNgheSi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, ngheSiFragment).commit();
-            }
-        });
-
-        btnOpenAlbum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, albumFragment).commit();
-            }
-        });
-
-        btnOpenBaihat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, baiHatFragment).commit();
-            }
-        });
-
-        btnScanSongTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-                    } else {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-                    }
-                } else {
-                    doStuff();
-                }
-
-            }
-        });
-    }
-
-    public void doStuff() {
-
-        getMusic();
-        Toast.makeText(getActivity(), "Scan Music Done", Toast.LENGTH_SHORT).show();
+        libraryPresenter.OpenPlaylist();
+        libraryPresenter.OpenAlbum();
+        libraryPresenter.OpenBaihat();
+        libraryPresenter.ScanSongTV();
 
     }
 
-    public void getMusic() {
+
+    @Override
+    public void doStuffs() {
+        libraryPresenter.getMusics();
+        Toast.makeText(getActivity(), "Tìm kiếm nhạc thành công ", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getMusics() {
 
         List<BaiHat> baiHatList = new ArrayList<>();
 
@@ -169,6 +131,70 @@ public class ThuVienFragment extends Fragment {
                 }
             } while (cursor.moveToNext());
         }
+
+    }
+
+    @Override
+    public void OpenPlaylist() {
+        btnOpenPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, playlistFragment).commit();
+            }
+        });
+    }
+
+    @Override
+    public void OpenNgheSi() {
+
+
+
+    }
+
+    @Override
+    public void OpenAlbum() {
+        btnOpenAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, albumFragment).commit();
+            }
+        });
+    }
+
+    @Override
+    public void OpenBaihat() {
+        btnOpenBaihat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, baiHatFragment).commit();
+            }
+        });
+
+    }
+
+    @Override
+    public void ScanSongTV() {
+
+        btnScanSongTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+                    } else {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+                    }
+                } else {
+                    libraryPresenter.doStuffs();
+                }
+
+            }
+        });
+
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -177,7 +203,7 @@ public class ThuVienFragment extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(getActivity(), "Permissions Granted", Toast.LENGTH_SHORT).show();
-                        doStuff();
+                        libraryPresenter.doStuffs();
                     }
                 } else {
                     Toast.makeText(getActivity(), "No Permissions", Toast.LENGTH_SHORT).show();

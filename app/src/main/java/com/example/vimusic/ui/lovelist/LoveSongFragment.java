@@ -19,11 +19,13 @@ import com.example.vimusic.model.BaiHat;
 
 import java.util.List;
 
-public class LoveSongFragment extends Fragment {
+public class LoveSongFragment extends Fragment implements LoveSongView {
     private RecyclerView rvmusiclove;
     private BaiHatDAO baiHatDAO;
     private AdapterRecyclerViewBaiHat adapterRecyclerViewBaiHat;
     private LinearLayoutManager linearLayoutManager;
+
+    private LoveSongPresenter loveSongPresenter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +42,10 @@ public class LoveSongFragment extends Fragment {
         rvmusiclove = view.findViewById(R.id.rvmusiclove);
         baiHatDAO = new BaiHatDAO(getActivity());
 
+        loveSongPresenter = new LoveSongPresenter(this);
+
+        loveSongPresenter.ScanSongLove();
+
 
 
     }
@@ -47,7 +53,12 @@ public class LoveSongFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        loveSongPresenter.ScanSongLove();
 
+    }
+
+    @Override
+    public void ScanLoveSong() {
         final List<BaiHat> baiHatList = baiHatDAO.getAllSongLove();
 
         linearLayoutManager = new LinearLayoutManager(getActivity());

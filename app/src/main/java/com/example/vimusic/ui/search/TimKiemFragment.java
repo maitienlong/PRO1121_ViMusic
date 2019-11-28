@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.vimusic.R;
 
-public class TimKiemFragment extends Fragment {
+public class TimKiemFragment extends Fragment implements TimKiemView {
 
     private TextView btnXoaLichSu ;
 
