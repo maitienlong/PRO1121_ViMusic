@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.dao.BaiHatDAO;
+import com.example.vimusic.databinding.FragmentThuvienBinding;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.ui.thuvien.album.AlbumFragment;
 import com.example.vimusic.ui.thuvien.song.BaiHatFragment;
 import com.example.vimusic.ui.thuvien.artist.NgheSiFragment;
@@ -52,14 +55,18 @@ public class ThuVienFragment extends Fragment implements LibraryView {
     private MediaPlayer mediaPlayer;
     private static final int MY_PERMISSION_REQUEST = 1;
 
+    private FragmentThuvienBinding fragmentThuvienBinding;
+
     private LibraryPresenter libraryPresenter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_thuvien, container, false);
+        fragmentThuvienBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_thuvien, container, false);
 
+        View view = fragmentThuvienBinding.getRoot();
 
-        return root;
+        return view;
     }
 
     @Override
@@ -71,6 +78,9 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         ngheSiFragment = new NgheSiFragment();
         albumFragment = new AlbumFragment();
         baiHatFragment = new BaiHatFragment();
+
+        BindingModel bindingModel = new BindingModel();
+
 
         libraryPresenter = new LibraryPresenter(this);
 
@@ -86,6 +96,7 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         libraryPresenter.OpenBaihat();
         libraryPresenter.ScanSongTV();
 
+        fragmentThuvienBinding.setMainactivity(bindingModel);
     }
 
 
@@ -119,7 +130,7 @@ public class ThuVienFragment extends Fragment implements LibraryView {
                 baiHat.title = cursor.getString(title);
                 baiHat.artist = cursor.getString(artist);
                 baiHat.album = cursor.getString(album);
-                baiHat.love = false ;
+                baiHat.love = false;
                 baiHatList.add(baiHat);
 
                 long result = baiHatDAO.insertBook(baiHat);
@@ -147,7 +158,6 @@ public class ThuVienFragment extends Fragment implements LibraryView {
 
     @Override
     public void OpenNgheSi() {
-
 
 
     }

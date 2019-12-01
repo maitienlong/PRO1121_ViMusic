@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,7 +19,9 @@ import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewPlayList;
 import com.example.vimusic.adapter.AdapterRecyclerViewPlayListtoPLCT;
 import com.example.vimusic.dao.PlayListCTDAO;
+import com.example.vimusic.databinding.FragmentPlaylistctBinding;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.ui.mediaplayer.MediaPlayerFragment;
 
 import java.util.List;
@@ -37,9 +40,15 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
     private PlaylistCTPresenter playlistCTPresenter;
 
 
+    private FragmentPlaylistctBinding fragmentPlaylistctBinding;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_playlistct, container, false);
-        return root;
+        fragmentPlaylistctBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlistct, container, false);
+
+        View view = fragmentPlaylistctBinding.getRoot();
+
+        return view;
     }
 
     @Override
@@ -48,16 +57,18 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
         tvPlaylistCT_TenPlaylist = view.findViewById(R.id.tvPlaylistCT_TenPlaylist);
         rvplaylistct = view.findViewById(R.id.rvplaylistct);
 
-        playlistCTPresenter = new PlaylistCTPresenter(this);
-        mediaPlayerFragment = new MediaPlayerFragment();
-
         Bundle bundle = getArguments();
         String nameplaylist = bundle.getString("nameplaylist");
 
         playListCTDAO = new PlayListCTDAO(getActivity());
-        baiHatList = playListCTDAO.getAllPlaylistCT("'"+nameplaylist+"'");
+        playlistCTPresenter = new PlaylistCTPresenter(this);
+        mediaPlayerFragment = new MediaPlayerFragment();
 
-        tvPlaylistCT_TenPlaylist.setText(nameplaylist);
+        BindingModel bindingModel = new BindingModel();
+        bindingModel.tvPlaylistCT_TenPlaylist = nameplaylist;
+        fragmentPlaylistctBinding.setMainactivity(bindingModel);
+
+        baiHatList = playListCTDAO.getAllPlaylistCT("'" + nameplaylist + "'");
 
         playlistCTPresenter.ShowPlaylistCT();
     }
@@ -75,27 +86,26 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
         AdapterRecyclerViewPlayListtoPLCT.ItemClickSupport.addTo(rvplaylistct).setOnItemClickListener(new AdapterRecyclerViewPlayListtoPLCT.ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
-                Bundle bundle = new Bundle();
-                String location = baiHatList.get(position).location;
-                String name = baiHatList.get(position).title;
-                String artist = baiHatList.get(position).artist;
-
-                bundle.putString("locationplaylist", location);
-                bundle.putString("nameplaylist", name);
-                bundle.putString("artistplaylist", artist);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                mediaPlayerFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
-
-
+                playlistCTPresenter.sentdate(baiHatList.get(position).location, baiHatList.get(position).title, baiHatList.get(position).artist);
             }
         });
     }
 
+    @Override
+    public void SendMessage(String location, String title, String artist) {
+        Bundle bundle = new Bundle();
+
+        bundle.putString("location", location);
+        bundle.putString("title", title);
+        bundle.putString("artist", artist);
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(mediaPlayerFragment);
+        mediaPlayerFragment = new MediaPlayerFragment();
+        mediaPlayerFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
+    }
     @Override
     public void InputBundle() {
 
@@ -111,4 +121,6 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
     public void SetNamePlaylist() {
 
     }
+
+
 }

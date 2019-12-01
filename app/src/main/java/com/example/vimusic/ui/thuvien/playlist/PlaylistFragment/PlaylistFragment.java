@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,7 +30,9 @@ import com.example.vimusic.adapter.AdapterRecyclerViewPlayListCT;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.dao.PlayListCTDAO;
 import com.example.vimusic.dao.PlayListDAO;
+import com.example.vimusic.databinding.FragmentPlaylistBinding;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.model.PlayList;
 import com.example.vimusic.model.PlayListChiTiet;
 import com.example.vimusic.ui.thuvien.library.ThuVienFragment;
@@ -62,14 +65,16 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
 
     private PlaylistPresenter playlistPresenter;
 
+    private FragmentPlaylistBinding fragmentPlaylistBinding;
+
     List<PlayListChiTiet> playListChiTietList;
     List<PlayList> dovaolist;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_playlist, container, false);
-
-        return root;
+        fragmentPlaylistBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlist, container, false);
+        View view = fragmentPlaylistBinding.getRoot();
+        return view;
     }
 
     @Override
@@ -82,6 +87,9 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
         rvplaylist = view.findViewById(R.id.rvplaylist);
         btnBackPlaylistToThuVien = view.findViewById(R.id.btnBackPlaylistToThuVien);
 
+        BindingModel bindingModel = new BindingModel();
+
+
         playlistPresenter = new PlaylistPresenter(this);
 
         playListDAO = new PlayListDAO(getActivity());
@@ -90,10 +98,10 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
         thuVienFragment = new ThuVienFragment();
         playListCTFragment = new PlayListCTFragment();
 
-
         playlistPresenter.BackPlaylistToThuVien();
         playlistPresenter.CheckShow();
 
+        fragmentPlaylistBinding.setMainactivity(bindingModel);
     }
 
     @Override

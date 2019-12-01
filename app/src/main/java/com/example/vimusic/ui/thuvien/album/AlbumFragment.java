@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
-import com.example.vimusic.adapter.AdapterRecyclerViewAlbum;
-import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
+import com.example.vimusic.adapter.AlbumRVAdapter;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.model.BaiHat;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class AlbumFragment extends Fragment {
     private RecyclerView rvalbum;
     private LinearLayoutManager linearLayoutManager;
-    private AdapterRecyclerViewAlbum adapterRecyclerViewAlbum;
+    private AlbumRVAdapter albumRVAdapter;
     private BaiHatDAO baiHatDAO;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +43,9 @@ public class AlbumFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
-        adapterRecyclerViewAlbum = new AdapterRecyclerViewAlbum(getActivity(), baiHatList);
+        albumRVAdapter = new AlbumRVAdapter(getActivity(), baiHatList);
 
-        rvalbum.setAdapter(adapterRecyclerViewAlbum);
+        rvalbum.setAdapter(albumRVAdapter);
 
         rvalbum.setLayoutManager(linearLayoutManager);
 

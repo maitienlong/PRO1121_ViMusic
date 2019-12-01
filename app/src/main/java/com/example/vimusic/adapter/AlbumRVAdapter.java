@@ -7,21 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.adapters.AdapterViewBindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
 import com.example.vimusic.model.BaiHat;
-import com.example.vimusic.model.PlayList;
 
 import java.util.List;
 
-public class AdapterRecyclerViewAlbum extends RecyclerView.Adapter<AdapterRecyclerViewAlbum.ItemHolder> {
+public class AlbumRVAdapter extends RecyclerView.Adapter<AlbumRVAdapter.ItemHolder> {
 
     private Context context;
 
     private List<BaiHat> baiHatList ;
 
-    public AdapterRecyclerViewAlbum(Context context, List<BaiHat> baiHatList) {
+    public AlbumRVAdapter(Context context, List<BaiHat> baiHatList) {
         this.context = context;
         this.baiHatList = baiHatList;
     }
@@ -29,7 +30,8 @@ public class AdapterRecyclerViewAlbum extends RecyclerView.Adapter<AdapterRecycl
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_album, viewGroup, false);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.row_album,viewGroup,false);
         return new ItemHolder(view);
     }
 

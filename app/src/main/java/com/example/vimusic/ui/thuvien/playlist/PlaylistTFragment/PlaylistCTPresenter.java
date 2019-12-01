@@ -25,4 +25,8 @@ public class PlaylistCTPresenter {
     void SetNamePlaylist() {
         playlistCTView.SetNamePlaylist();
     }
+
+    void sentdate(String location, String title, String artist){
+        playlistCTView.SendMessage(location, title, artist);
+    }
 }

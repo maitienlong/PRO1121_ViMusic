@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="mainactivity"
+            type="com.example.vimusic.model.BindingModel" />
+    </data>
+
+<ScrollView
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -64,7 +71,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="TÊN PLAYLIST"
+                android:text="@{mainactivity.tvPlaylistCT_TenPlaylist}"
                 android:textColor="#fff"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -98,3 +105,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
+</layout>

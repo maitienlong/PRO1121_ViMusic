@@ -10,4 +10,6 @@ public interface PlaylistCTView {
 
    void SetNamePlaylist();
 
+   void  SendMessage(String location, String name, String artist);
+
 }

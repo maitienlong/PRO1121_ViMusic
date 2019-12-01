@@ -75,6 +75,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         tvPlayerTenBaiHat.setText(name);
         tvPlayerTenCaSi.setText(artist);
 
+
     }
 
     @Override
@@ -90,8 +91,20 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         Log.e("MediaPlayerFragment", "onPause");
     }
 
-    public void ReceivedData(String location) {
-        mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(location));
-        mediaPlayer.start();
+    @Override
+    public void Control() {
+        switch (getId()) {
+            case R.id.btnDialogPlay:
+                if (mediaPlayer == null) {
+                    mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(location));
+                    mediaPlayer.start();
+                } else if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                }
+                break;
+
+
+        }
     }
+
 }
