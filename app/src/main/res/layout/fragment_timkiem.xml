@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#000"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/sfdbold"
-        android:text="Tìm kiếm"
-        android:textColor="@color/colorWhile"
-        android:textSize="38sp" />
+    <data>
 
-    <androidx.cardview.widget.CardView
+        <variable
+            name="mainactivity"
+            type="com.example.vimusic.model.BindingModel" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:cardCornerRadius="30sp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:cardBackgroundColor="#636e72">
-        <com.google.android.material.textfield.TextInputLayout
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/sfdbold"
+            android:text="Tìm kiếm"
+            android:textColor="@color/colorWhile"
+            android:textSize="38sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
+            app:cardBackgroundColor="#636e72"
+            app:cardCornerRadius="30sp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtLIUsername"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:inputType="textFilter"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:hint="Tìm kiếm bài hát hoặc nghệ sĩ"
-                android:textColor="#fff" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_marginRight="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLIUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:hint="Tìm kiếm bài hát hoặc nghệ sĩ"
+                    android:inputType="textFilter"
+                    android:textColor="#fff" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <TextView
-
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/sfdregular"
+                android:text="Tìm kiếm gần đây"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btnXoaLichSu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:fontFamily="@font/sfdregular"
+                android:text="Xóa lịch sử"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="239dp"
             android:layout_marginLeft="16dp"
-            android:fontFamily="@font/sfdregular"
-            android:text="Tìm kiếm gần đây"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/btnXoaLichSu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:fontFamily="@font/sfdregular"
-            android:text="Xóa lịch sử"
-            android:textColor="@color/colorText"
-            android:textSize="20sp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp" />
 
     </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="239dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp" />
-
-</LinearLayout>
+</layout>

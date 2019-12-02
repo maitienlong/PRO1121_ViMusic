@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
-import com.example.vimusic.adapter.AdapterRecyclerViewPlayList;
-import com.example.vimusic.adapter.AdapterRecyclerViewPlayListtoPLCT;
+import com.example.vimusic.adapter.PlayListDetailRVAdapter;
 import com.example.vimusic.dao.PlayListCTDAO;
 import com.example.vimusic.databinding.FragmentPlaylistctBinding;
 import com.example.vimusic.model.BaiHat;
@@ -30,7 +29,7 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
 
     public TextView tvPlaylistCT_TenPlaylist;
     private RecyclerView rvplaylistct;
-    private AdapterRecyclerViewPlayListtoPLCT adapterRecyclerViewPlayListtoPLCT;
+    private PlayListDetailRVAdapter playListDetailRVAdapter;
     private PlayListCTDAO playListCTDAO;
     private LinearLayoutManager linearLayoutManager;
     private List<BaiHat> baiHatList;
@@ -77,13 +76,13 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
     public void ShowPlaylistCT() {
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
-        adapterRecyclerViewPlayListtoPLCT = new AdapterRecyclerViewPlayListtoPLCT(getActivity(), baiHatList);
+        playListDetailRVAdapter = new PlayListDetailRVAdapter(getActivity(), baiHatList);
 
-        rvplaylistct.setAdapter(adapterRecyclerViewPlayListtoPLCT);
+        rvplaylistct.setAdapter(playListDetailRVAdapter);
 
         rvplaylistct.setLayoutManager(linearLayoutManager);
 
-        AdapterRecyclerViewPlayListtoPLCT.ItemClickSupport.addTo(rvplaylistct).setOnItemClickListener(new AdapterRecyclerViewPlayListtoPLCT.ItemClickSupport.OnItemClickListener() {
+        PlayListDetailRVAdapter.ItemClickSupport.addTo(rvplaylistct).setOnItemClickListener(new PlayListDetailRVAdapter.ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 playlistCTPresenter.sentdate(baiHatList.get(position).location, baiHatList.get(position).title, baiHatList.get(position).artist);

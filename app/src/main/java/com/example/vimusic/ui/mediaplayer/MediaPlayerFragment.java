@@ -14,9 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.vimusic.R;
+import com.example.vimusic.databinding.FragmentMediaplayerBinding;
 import com.example.vimusic.ui.thuvien.song.SongPresenter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -32,6 +34,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
     private ImageView btnForward;
 
     private SongPresenter songPresenter;
+    private FragmentMediaplayerBinding fragmentMediaplayerBinding;
 
     private String location;
     private String name;
@@ -50,7 +53,9 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_mediaplayer, container, false);
+        fragmentMediaplayerBinding = DataBindingUtil.inflate(inflater , R.layout.fragment_mediaplayer, container, false);
+
+        View root = fragmentMediaplayerBinding.getRoot();
 
         return root;
     }

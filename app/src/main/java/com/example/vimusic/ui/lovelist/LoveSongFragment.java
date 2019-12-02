@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.dao.BaiHatDAO;
+import com.example.vimusic.databinding.FragmentYeuthichBinding;
 import com.example.vimusic.model.BaiHat;
 
 import java.util.List;
@@ -27,10 +29,14 @@ public class LoveSongFragment extends Fragment implements LoveSongView {
 
     private LoveSongPresenter loveSongPresenter;
 
+    private FragmentYeuthichBinding fragmentYeuthichBinding;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_yeuthich, container, false);
+        fragmentYeuthichBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_yeuthich, container, false );
+
+        View root = fragmentYeuthichBinding.getRoot();
 
         return root;
     }

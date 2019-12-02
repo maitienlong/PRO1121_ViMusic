@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vimusic.R;
 import com.example.vimusic.adapter.AlbumRVAdapter;
 import com.example.vimusic.dao.BaiHatDAO;
+import com.example.vimusic.databinding.FragmentAlbumBinding;
 import com.example.vimusic.model.BaiHat;
 
 import java.util.List;
@@ -23,10 +25,12 @@ public class AlbumFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private AlbumRVAdapter albumRVAdapter;
     private BaiHatDAO baiHatDAO;
+    private FragmentAlbumBinding fragmentAlbumBinding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        fragmentAlbumBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_album, container, false);
 
-        View root = inflater.inflate(R.layout.fragment_album, container, false);
+        View root = fragmentAlbumBinding.getRoot();
 
         return root;
     }

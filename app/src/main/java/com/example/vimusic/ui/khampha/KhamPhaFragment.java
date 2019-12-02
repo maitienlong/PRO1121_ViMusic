@@ -8,16 +8,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.vimusic.R;
+import com.example.vimusic.databinding.FragmentKhamphaBinding;
 
 public class KhamPhaFragment extends Fragment implements KhamPhaView{
 
-
+private FragmentKhamphaBinding fragmentKhamphaBinding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_khampha, container, false);
+
+        fragmentKhamphaBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_khampha, container, false);
+
+        View root = fragmentKhamphaBinding.getRoot();
 
         return root;
     }

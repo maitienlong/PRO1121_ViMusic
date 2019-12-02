@@ -12,7 +12,9 @@ import androidx.databinding.adapters.AdapterViewBindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
+import com.example.vimusic.databinding.RowAlbumBinding;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.model.BindingModel;
 
 import java.util.List;
 
@@ -20,7 +22,8 @@ public class AlbumRVAdapter extends RecyclerView.Adapter<AlbumRVAdapter.ItemHold
 
     private Context context;
 
-    private List<BaiHat> baiHatList ;
+    private List<BaiHat> baiHatList;
+
 
     public AlbumRVAdapter(Context context, List<BaiHat> baiHatList) {
         this.context = context;
@@ -30,15 +33,17 @@ public class AlbumRVAdapter extends RecyclerView.Adapter<AlbumRVAdapter.ItemHold
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        RowAlbumBinding rowAlbumBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.row_album, viewGroup, false);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.row_album,viewGroup,false);
-        return new ItemHolder(view);
+        return new ItemHolder(rowAlbumBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
+        BindingModel bindingModel = new BindingModel();
         BaiHat baiHat = baiHatList.get(i);
-        itemHolder.tvplaylistrowTenAlbum.setText(baiHat.album);
+        bindingModel.tvplaylistrowTenAlbum = baiHat.album;
+        itemHolder.rowAlbumBinding.setMainactivity(bindingModel);
 
     }
 
@@ -50,12 +55,11 @@ public class AlbumRVAdapter extends RecyclerView.Adapter<AlbumRVAdapter.ItemHold
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvplaylistrowTenAlbum;
+        private RowAlbumBinding rowAlbumBinding;
 
-        public ItemHolder(@NonNull View itemView) {
-            super(itemView);
-            tvplaylistrowTenAlbum = itemView.findViewById(R.id.tvplaylistrowTenAlbum);
-
+        public ItemHolder(@NonNull RowAlbumBinding rowAlbumBinding) {
+            super(rowAlbumBinding.getRoot());
+            this.rowAlbumBinding = rowAlbumBinding;
         }
     }
 

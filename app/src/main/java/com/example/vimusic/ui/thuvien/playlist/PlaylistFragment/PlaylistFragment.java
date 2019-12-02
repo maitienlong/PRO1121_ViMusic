@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vimusic.R;
 import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.adapter.AdapterRecyclerViewPlayList;
-import com.example.vimusic.adapter.AdapterRecyclerViewPlayListCT;
+import com.example.vimusic.adapter.PlayListCartRVAdapter;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.dao.PlayListCTDAO;
 import com.example.vimusic.dao.PlayListDAO;
@@ -59,7 +59,7 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
     private RecyclerView rvplaylist;
 
     private AdapterRecyclerViewBaiHat adapterRecyclerViewBaiHat;
-    private AdapterRecyclerViewPlayListCT adapterRecyclerViewPlayListCT;
+    private PlayListCartRVAdapter playListCartRVAdapter;
     private AdapterRecyclerViewPlayList adapterRecyclerViewPlayList;
     private LinearLayoutManager linearLayoutManager;
 
@@ -198,9 +198,9 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
-        adapterRecyclerViewPlayListCT = new AdapterRecyclerViewPlayListCT(getActivity(), playListChiTietList);
+        playListCartRVAdapter = new PlayListCartRVAdapter(getActivity(), playListChiTietList);
 
-        rvplarrsong.setAdapter(adapterRecyclerViewPlayListCT);
+        rvplarrsong.setAdapter(playListCartRVAdapter);
 
         rvplarrsong.setLayoutManager(linearLayoutManager);
 
@@ -299,9 +299,9 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
                             Toast.makeText(getActivity(), "Đã thêm " + baiHatList.get(position).title + " vào playlist", Toast.LENGTH_SHORT).show();
                             linearLayoutManager = new LinearLayoutManager(getActivity());
 
-                            adapterRecyclerViewPlayListCT = new AdapterRecyclerViewPlayListCT(getActivity(), playListChiTietList);
+                            playListCartRVAdapter = new PlayListCartRVAdapter(getActivity(), playListChiTietList);
 
-                            rvplarrsong.setAdapter(adapterRecyclerViewPlayListCT);
+                            rvplarrsong.setAdapter(playListCartRVAdapter);
 
                             rvplarrsong.setLayoutManager(linearLayoutManager);
                             return;
@@ -324,9 +324,9 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
 
                         linearLayoutManager = new LinearLayoutManager(getActivity());
 
-                        adapterRecyclerViewPlayListCT = new AdapterRecyclerViewPlayListCT(getActivity(), playListChiTietList);
+                        playListCartRVAdapter = new PlayListCartRVAdapter(getActivity(), playListChiTietList);
 
-                        rvplarrsong.setAdapter(adapterRecyclerViewPlayListCT);
+                        rvplarrsong.setAdapter(playListCartRVAdapter);
 
                         rvplarrsong.setLayoutManager(linearLayoutManager);
 

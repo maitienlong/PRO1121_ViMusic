@@ -8,19 +8,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.vimusic.R;
+import com.example.vimusic.databinding.FragmentTimkiemBinding;
 
 public class TimKiemFragment extends Fragment implements TimKiemView {
 
     private TextView btnXoaLichSu ;
+    private FragmentTimkiemBinding fragmentTimkiemBinding;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        fragmentTimkiemBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_timkiem, container, false);
 
-        View root = inflater.inflate(R.layout.fragment_timkiem, container, false);
+        View root = fragmentTimkiemBinding.getRoot();
 
         btnXoaLichSu = root.findViewById(R.id.btnXoaLichSu);
 

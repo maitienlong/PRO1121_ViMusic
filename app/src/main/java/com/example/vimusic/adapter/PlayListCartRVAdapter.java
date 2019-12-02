@@ -7,56 +7,58 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
-import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.databinding.RowPlaylistcartBinding;
+import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.model.PlayListChiTiet;
 
 import java.util.List;
 
-public class AdapterRecyclerViewPlayListtoPLCT extends RecyclerView.Adapter<AdapterRecyclerViewPlayListtoPLCT.ItemHolder> {
+public class PlayListCartRVAdapter extends RecyclerView.Adapter<PlayListCartRVAdapter.ItemHolder> {
 
     private Context context;
 
-    private List<BaiHat> baiHatList ;
+    private List<PlayListChiTiet> playListChiTietList;
 
-    public AdapterRecyclerViewPlayListtoPLCT(Context context, List<BaiHat> baiHatList) {
+    public PlayListCartRVAdapter(Context context, List<PlayListChiTiet> playListChiTietList) {
         this.context = context;
-        this.baiHatList = baiHatList;
+        this.playListChiTietList = playListChiTietList;
     }
 
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_playlistcttoct, viewGroup, false);
-        return new ItemHolder(view);
+
+        RowPlaylistcartBinding rowPlaylistcartBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.row_playlistcart, viewGroup, false);
+
+        return new ItemHolder(rowPlaylistcartBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
-        BaiHat baiHat = baiHatList.get(i);
-        itemHolder.tvplcttenbaihat.setText(baiHat.title);
-        itemHolder.tvplcttencasi.setText(baiHat.artist);
+        BindingModel bindingModel = new BindingModel();
+        PlayListChiTiet playListChiTiet = playListChiTietList.get(i);
+        bindingModel.tvPlaylistCartTitle = playListChiTiet.location;
+        itemHolder.rowPlaylistcartBinding.setMainactivity(bindingModel);
 
     }
 
     @Override
     public int getItemCount() {
-        if (baiHatList == null) return 0;
-        return baiHatList.size();
+        if (playListChiTietList == null) return 0;
+        return playListChiTietList.size();
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvplcttenbaihat;
-        public TextView tvplcttencasi;
+        private RowPlaylistcartBinding rowPlaylistcartBinding;
 
-        public ItemHolder(@NonNull View itemView) {
-            super(itemView);
-            tvplcttenbaihat = itemView.findViewById(R.id.tvplcttenbaihat);
-            tvplcttencasi = itemView.findViewById(R.id.tvplctcasi);
-
+        public ItemHolder(@NonNull RowPlaylistcartBinding rowPlaylistcartBinding) {
+            super(rowPlaylistcartBinding.getRoot());
+            this.rowPlaylistcartBinding = rowPlaylistcartBinding;
         }
     }
 
