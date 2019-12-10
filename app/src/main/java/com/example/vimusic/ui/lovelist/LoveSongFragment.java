@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,7 @@ import com.example.vimusic.adapter.AdapterRecyclerViewBaiHat;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.databinding.FragmentYeuthichBinding;
 import com.example.vimusic.model.BaiHat;
+import com.example.vimusic.ui.mediaplayer.MediaPlayerFragment;
 
 import java.util.List;
 
@@ -74,5 +77,27 @@ public class LoveSongFragment extends Fragment implements LoveSongView {
         rvmusiclove.setAdapter(adapterRecyclerViewBaiHat);
 
         rvmusiclove.setLayoutManager(linearLayoutManager);
+        AdapterRecyclerViewBaiHat.ItemClickSupport.addTo(rvmusiclove).setOnItemClickListener(new AdapterRecyclerViewBaiHat.ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                loveSongPresenter.SendMessage(position);
+            }
+        });
+    }
+
+    @Override
+    public void SendMessage(int position) {
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("position", position);
+        bundle.putString("keylist", "lovelist");
+
+        MediaPlayerFragment mediaPlayerFragment = new MediaPlayerFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(mediaPlayerFragment);
+        mediaPlayerFragment = new MediaPlayerFragment();
+        mediaPlayerFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
     }
 }

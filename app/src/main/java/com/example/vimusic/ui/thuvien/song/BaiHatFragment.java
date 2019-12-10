@@ -27,6 +27,7 @@ import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.ui.mediaplayer.MediaPlayerFragment;
 import com.example.vimusic.ui.thuvien.library.ThuVienFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaiHatFragment extends Fragment implements SongView {
@@ -96,26 +97,25 @@ public class BaiHatFragment extends Fragment implements SongView {
         AdapterRecyclerViewBaiHat.ItemClickSupport.addTo(rvSong).setOnItemClickListener(new AdapterRecyclerViewBaiHat.ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-                songPresenter.SendMessage(baiHatList.get(position).location, baiHatList.get(position).title, baiHatList.get(position).artist);
+                songPresenter.SendMessage(position);
             }
         });
 
     }
 
     @Override
-    public void SendMessage(String location, String title, String artist) {
+    public void SendMessage(int position) {
         Bundle bundle = new Bundle();
 
-        bundle.putString("location", location);
-        bundle.putString("title", title);
-        bundle.putString("artist", artist);
+        bundle.putInt("position", position);
+        bundle.putString("keylist", "baihatlist");
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.remove(mediaPlayerFragment);
         mediaPlayerFragment = new MediaPlayerFragment();
         mediaPlayerFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
+        fragmentTransaction.replace(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
 
 
     }
@@ -123,13 +123,13 @@ public class BaiHatFragment extends Fragment implements SongView {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("BaiHataFragment", "onResume");
+        Log.e("BaiHataFragment", "btnNext");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("BaiHataFragment", "onPause");
+        Log.e("BaiHataFragment", "btnPreview");
     }
 
 }

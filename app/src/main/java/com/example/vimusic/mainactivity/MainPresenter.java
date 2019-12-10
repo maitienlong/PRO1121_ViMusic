@@ -12,4 +12,10 @@ public class MainPresenter {
 
         mainView.SelectedFragment();
     }
+    void dosulf(){
+        mainView.DoSuff();
+    }
+    void getMusic(){
+        mainView.getMusic();
+    }
 }

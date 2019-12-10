@@ -1,4 +1,4 @@
-package com.example.vimusic.ui.thuvien.playlist.PlaylistTFragment;
+package com.example.vimusic.ui.thuvien.playlist.PlaylistDetailFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +37,7 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
     private MediaPlayerFragment mediaPlayerFragment;
 
     private PlaylistCTPresenter playlistCTPresenter;
-
+    String nameplaylist;
 
     private FragmentPlaylistctBinding fragmentPlaylistctBinding;
 
@@ -57,7 +57,7 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
         rvplaylistct = view.findViewById(R.id.rvplaylistct);
 
         Bundle bundle = getArguments();
-        String nameplaylist = bundle.getString("nameplaylist");
+        nameplaylist = bundle.getString("nameplaylist");
 
         playListCTDAO = new PlayListCTDAO(getActivity());
         playlistCTPresenter = new PlaylistCTPresenter(this);
@@ -85,25 +85,25 @@ public class PlayListCTFragment extends Fragment implements PlaylistCTView {
         PlayListDetailRVAdapter.ItemClickSupport.addTo(rvplaylistct).setOnItemClickListener(new PlayListDetailRVAdapter.ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                playlistCTPresenter.sentdate(baiHatList.get(position).location, baiHatList.get(position).title, baiHatList.get(position).artist);
+                playlistCTPresenter.sentdate(position, nameplaylist);
             }
         });
     }
 
     @Override
-    public void SendMessage(String location, String title, String artist) {
+    public void SendMessage(int position, String namec) {
         Bundle bundle = new Bundle();
 
-        bundle.putString("location", location);
-        bundle.putString("title", title);
-        bundle.putString("artist", artist);
+        bundle.putInt("position", position);
+        bundle.putString("keylist", "playlist");
+        bundle.putString("namec", namec);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.remove(mediaPlayerFragment);
         mediaPlayerFragment = new MediaPlayerFragment();
         mediaPlayerFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
+        fragmentTransaction.replace(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
     }
     @Override
     public void InputBundle() {

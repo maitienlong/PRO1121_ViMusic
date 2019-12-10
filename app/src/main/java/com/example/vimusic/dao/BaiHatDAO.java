@@ -107,10 +107,31 @@ public class BaiHatDAO {
                 baiHatList.add(baiHat);
             } while (cursor.moveToNext());
         }
-        Log.e("getAllSongLove",baiHatList.size()+"");
+        Log.e("getAllSongLove", baiHatList.size() + "");
         sqLiteDatabase.close();
 
         return baiHatList;
     }
+
+    public long updateSongHi(BaiHat baiHat) {
+        SQLiteDatabase sqLiteDatabase = songReadDatabase.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(C_LOACTION, baiHat.location);
+        contentValues.put(C_TITLE, baiHat.title);
+        contentValues.put(C_ARTIST, baiHat.artist);
+        contentValues.put(C_ALBUM, baiHat.album);
+
+        long result = sqLiteDatabase.update(T_SONG, contentValues, C_LOACTION + "=?", new String[]{String.valueOf(baiHat.location)});
+
+        sqLiteDatabase.close();
+
+        return result;
+    }
+
+
+
+
+
 
 }

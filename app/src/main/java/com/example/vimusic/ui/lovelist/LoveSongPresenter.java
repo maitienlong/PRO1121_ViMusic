@@ -10,8 +10,11 @@ public class LoveSongPresenter {
     }
 
     void ScanSongLove(){
-
         loveSongView.ScanLoveSong();
+    }
+
+    void SendMessage(int position){
+        loveSongView.SendMessage(position);
     }
 
 

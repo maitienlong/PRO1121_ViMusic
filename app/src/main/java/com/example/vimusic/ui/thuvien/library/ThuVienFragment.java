@@ -94,6 +94,7 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         libraryPresenter.OpenPlaylist();
         libraryPresenter.OpenAlbum();
         libraryPresenter.OpenBaihat();
+        libraryPresenter.OpenNgheSi();
         libraryPresenter.ScanSongTV();
 
         fragmentThuvienBinding.setMainactivity(bindingModel);
@@ -158,7 +159,13 @@ public class ThuVienFragment extends Fragment implements LibraryView {
 
     @Override
     public void OpenNgheSi() {
-
+        btnOpenNgheSi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, ngheSiFragment).commit();
+            }
+        });
 
     }
 

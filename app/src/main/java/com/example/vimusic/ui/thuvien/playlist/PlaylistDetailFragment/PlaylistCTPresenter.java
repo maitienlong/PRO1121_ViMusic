@@ -1,6 +1,4 @@
-package com.example.vimusic.ui.thuvien.playlist.PlaylistTFragment;
-
-import com.example.vimusic.ui.thuvien.playlist.PlaylistFragment.PlaylistView;
+package com.example.vimusic.ui.thuvien.playlist.PlaylistDetailFragment;
 
 public class PlaylistCTPresenter {
 
@@ -26,7 +24,7 @@ public class PlaylistCTPresenter {
         playlistCTView.SetNamePlaylist();
     }
 
-    void sentdate(String location, String title, String artist){
-        playlistCTView.SendMessage(location, title, artist);
+    void sentdate(int position, String namec){
+        playlistCTView.SendMessage(position, namec);
     }
 }

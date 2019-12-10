@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="mainactivity"
+            type="com.example.vimusic.model.BindingModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#2d3436"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="4dp"
+            android:src="@drawable/status_defau" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@{mainactivity.tvBottomTenBaiHat}"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+
+
+
+    </LinearLayout>
+</layout>

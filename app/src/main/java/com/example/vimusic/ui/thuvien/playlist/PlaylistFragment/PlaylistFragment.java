@@ -36,7 +36,7 @@ import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.model.PlayList;
 import com.example.vimusic.model.PlayListChiTiet;
 import com.example.vimusic.ui.thuvien.library.ThuVienFragment;
-import com.example.vimusic.ui.thuvien.playlist.PlaylistTFragment.PlayListCTFragment;
+import com.example.vimusic.ui.thuvien.playlist.PlaylistDetailFragment.PlayListCTFragment;
 
 import java.util.ArrayList;
 import java.util.List;

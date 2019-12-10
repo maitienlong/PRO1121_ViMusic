@@ -1,6 +1,10 @@
 package com.example.vimusic.ui.thuvien.song;
 
+import com.example.vimusic.model.BaiHat;
+
+import java.util.ArrayList;
+
 public interface SongView {
     void ScanAllSong() ;
-    void SendMessage( String location, String title, String artist);
+    void SendMessage(int position);
 }

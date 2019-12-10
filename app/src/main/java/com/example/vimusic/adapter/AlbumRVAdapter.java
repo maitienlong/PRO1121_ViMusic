@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
 import com.example.vimusic.databinding.RowAlbumBinding;
+import com.example.vimusic.model.Album;
 import com.example.vimusic.model.BaiHat;
 import com.example.vimusic.model.BindingModel;
 
@@ -22,35 +23,36 @@ public class AlbumRVAdapter extends RecyclerView.Adapter<AlbumRVAdapter.ItemHold
 
     private Context context;
 
-    private List<BaiHat> baiHatList;
+    private List<Album> albumList;
 
 
-    public AlbumRVAdapter(Context context, List<BaiHat> baiHatList) {
+
+
+    public AlbumRVAdapter(Context context, List<Album> albumList) {
         this.context = context;
-        this.baiHatList = baiHatList;
+        this.albumList = albumList;
     }
 
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         RowAlbumBinding rowAlbumBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.row_album, viewGroup, false);
-
         return new ItemHolder(rowAlbumBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
         BindingModel bindingModel = new BindingModel();
-        BaiHat baiHat = baiHatList.get(i);
-        bindingModel.tvplaylistrowTenAlbum = baiHat.album;
+        Album album = albumList.get(i);
+        bindingModel.tvplaylistrowTenAlbum = album.namealbum;
         itemHolder.rowAlbumBinding.setMainactivity(bindingModel);
 
     }
 
     @Override
     public int getItemCount() {
-        if (baiHatList == null) return 0;
-        return baiHatList.size();
+        if (albumList == null) return 0;
+        return albumList.size();
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {

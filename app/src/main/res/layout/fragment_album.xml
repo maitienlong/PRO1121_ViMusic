@@ -13,13 +13,13 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/btnBackAlbumToThuVien"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/btnBackPlaylistToThuVien"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="8dp"
@@ -27,7 +27,7 @@
                 android:src="@drawable/btn_back" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:fontFamily="@font/sfdlight"
                 android:gravity="center_vertical"

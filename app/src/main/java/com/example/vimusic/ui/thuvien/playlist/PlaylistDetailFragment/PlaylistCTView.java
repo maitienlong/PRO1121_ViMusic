@@ -1,4 +1,4 @@
-package com.example.vimusic.ui.thuvien.playlist.PlaylistTFragment;
+package com.example.vimusic.ui.thuvien.playlist.PlaylistDetailFragment;
 
 public interface PlaylistCTView {
 
@@ -10,6 +10,6 @@ public interface PlaylistCTView {
 
    void SetNamePlaylist();
 
-   void  SendMessage(String location, String name, String artist);
+   void  SendMessage(int position, String namec);
 
 }

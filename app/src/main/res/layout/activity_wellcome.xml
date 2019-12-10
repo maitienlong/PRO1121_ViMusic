@@ -6,12 +6,32 @@
     android:layout_height="match_parent"
     android:background="#000"
     android:gravity="center"
-    tools:context=".WellcomeActivity">
+    android:orientation="vertical"
+    tools:context=".WelcomeActivity">
 
     <ImageView
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/logomusic"
+        android:id="@+id/logowelcome"
         android:layout_width="150dp"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp"
+        android:src="@drawable/logomusic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarLoading"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:progressTint="@color/colorText"
+            android:secondaryProgressTint="@color/colorPrimaryDark" />
+    </LinearLayout>
+
 
 </LinearLayout>

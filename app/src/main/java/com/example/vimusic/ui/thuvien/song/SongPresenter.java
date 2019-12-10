@@ -1,5 +1,9 @@
 package com.example.vimusic.ui.thuvien.song;
 
+import com.example.vimusic.model.BaiHat;
+
+import java.util.ArrayList;
+
 public class SongPresenter {
     private SongView songView;
 
@@ -11,8 +15,8 @@ public class SongPresenter {
         songView.ScanAllSong();
     }
 
-    void SendMessage(String location , String title, String artist) {
-        songView.SendMessage(location, title, artist);
+    void SendMessage(int position) {
+        songView.SendMessage(position);
     }
 }
 
