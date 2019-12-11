@@ -1,6 +1,7 @@
 package com.example.vimusic.ui.search;
 
 import android.app.Dialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -169,7 +170,7 @@ public class TimKiemFragment extends Fragment implements TimKiemView {
 
     @Override
     public void showhistory() {
-        List<History> gethis = historyDAO.getAllHistory();
+        final List<History> gethis = historyDAO.getAllHistory();
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -178,5 +179,12 @@ public class TimKiemFragment extends Fragment implements TimKiemView {
         rvhistory.setAdapter(historyRVAdapter);
 
         rvhistory.setLayoutManager(linearLayoutManager);
+        HistoryRVAdapter.ItemClickSupport.addTo(rvhistory).setOnItemClickListener(new HistoryRVAdapter.ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                edtSearch.setText(gethis.get(position).namehistory+"");
+
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private MediaPlayerFragment mediaPlayerFragment;
     private FrameLayout fragment_container;
     private BottomMediaPlayerFragment bottomMediaPlayerFragment;
-
 
     private MainPresenter mainPresenter;
 
@@ -109,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     case BottomSheetBehavior.STATE_DRAGGING:
                         MediaPlayTAB.setVisibility(View.GONE);
                         overridePendingTransition(R.anim.design_bottom_sheet_fade_in, R.anim.design_bottom_sheet_fade_out);
+                        break;
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        break;
+                        
                 }
             }
 

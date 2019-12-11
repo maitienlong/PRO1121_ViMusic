@@ -42,49 +42,98 @@
             android:src="@drawable/btn_scan_re" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/btnOpenPlaylist"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_vertical"
-        android:text="Playlist"
-        android:textColor="@color/colorText"
-        android:textSize="26sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/btnOpenNgheSi"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Nghệ sĩ"
-        android:textColor="@color/colorText"
-        android:textSize="26sp" />
 
-    <TextView
-        android:id="@+id/btnOpenAlbum"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Album"
-        android:textColor="@color/colorText"
-        android:textSize="26sp" />
+        <LinearLayout
+            android:id="@+id/linearLayoutOK"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayoutNO"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutNO"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/btnOpenBaiHat"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Bài hát"
-        android:textColor="@color/colorText"
-        android:textSize="26sp" />
+            <TextView
+                android:id="@+id/btnOpenPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="28dp"
+                android:gravity="center_vertical"
+                android:text="Playlist"
+                android:textColor="@color/colorText"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/btnOpenNgheSi"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Nghệ sĩ"
+                android:textColor="@color/colorText"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/btnOpenAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Album"
+                android:textColor="@color/colorText"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/btnOpenBaiHat"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Bài hát"
+                android:textColor="@color/colorText"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNO"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayoutOK"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutOK">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sandisplayblack"
+                android:gravity="center"
+                android:text="BẠN CHƯA CÓ BÀI HÁT NÀO"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnRescan"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorText"
+                android:text="QUÉT NGAY"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
 
 </layout>

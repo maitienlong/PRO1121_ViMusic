@@ -47,6 +47,10 @@ public class LibraryPresenter {
 
     }
 
+    void ScanAndUpdate(){
+        libraryView.CheckAndUpdate();
+    }
+
 
 
 }

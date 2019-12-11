@@ -1,8 +1,12 @@
 package com.example.vimusic.ui.mediaplayer;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,16 +17,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,9 +52,13 @@ import com.example.vimusic.model.BaiHat;
 import com.example.vimusic.model.BindingModel;
 import com.example.vimusic.notification.CreateNotification;
 import com.example.vimusic.services.onClearFormServices;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
@@ -53,15 +71,22 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
     private ImageView btnPlayerForward;
     private ImageView btnPlayerLoop;
     private ImageView btnPlayerLoveSong;
+    private ImageView imgcover;
 
     private SeekBar seekbarMusic;
 
     private TextView tvPlayerTotalTime;
     private TextView tvPlayerCurrentTime;
+    private int TIME_COUNT;
+    private boolean STATUS_TIMECOUNT = false;
 
     private FragmentMediaplayerBinding fragmentMediaplayerBinding;
     private BottomMediaPlayerFragment bottomMediaPlayerFragment;
     private MediaPlayerPresenter mediaPlayerPresenter;
+
+    private ImageView btnHenGio;
+
+    private ImageView btnMore;
 
     private BaiHatDAO baiHatDAO;
 
@@ -74,10 +99,10 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
     private int sizelist;
     private String namec;
 
+
     private boolean STATUS_LOOP = false;
 
     private NotificationManager notificationManager;
-
 
     private static MediaPlayer mediaPlayer;
 
@@ -114,6 +139,10 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         tvPlayerTenCaSi = view.findViewById(R.id.tvPlayerTenCaSi);
         tvPlayerTotalTime = view.findViewById(R.id.tvPlayerTotalTime);
         tvPlayerCurrentTime = view.findViewById(R.id.tvPlayerCurrentTime);
+        btnMore = view.findViewById(R.id.btnMore);
+        btnHenGio = view.findViewById(R.id.btnHenGio);
+
+        imgcover = view.findViewById(R.id.imgcover);
 
         seekbarMusic = view.findViewById(R.id.seekbarMusic);
 
@@ -128,6 +157,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         btnPlayerLoop = view.findViewById(R.id.btnPlayerLoop);
         btnPlayerLoveSong = view.findViewById(R.id.btnPlayerLoveSong);
 
+
 // ------------------------------------------------------------------------------------------------
 
         if (keylist != null) {
@@ -137,14 +167,12 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         mediaPlayerPresenter.playAudio(getActivity(), mlocation, martist, mtitle, malbum, keylist, postion);
 
 // -------------------- KHU VỰC HOẠT ĐỘNG CỦA SERVICES VÀ NOTIFICATION -----------------------------
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
             getActivity().registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
             getActivity().startService(new Intent(getActivity().getBaseContext(), onClearFormServices.class));
-        }
 
+        }
 
 // ------------------ KHU VỰC XỬ LÝ SỰ KIỆN BTN PLAY------------------------------------------------
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -186,18 +214,65 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         btnPlayerLoop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (STATUS_LOOP == false) {
-                    STATUS_LOOP = true;
-                    btnPlayerLoop.setColorFilter(getResources().getColor(R.color.colorText));
-                    return;
-                } else {
-                    STATUS_LOOP = false;
-                    btnPlayerLoop.setColorFilter(getResources().getColor(R.color.colorWhile));
-                }
+                mediaPlayerPresenter.ClickLoop();
             }
         });
 
 
+
+        //------------------- XỬ SỬ KIỆN THÊM ------------
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        //------------------------------ HEN GIO ---------------------------------------------------
+
+        btnHenGio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_hengio);
+
+                Window window = dialog.getWindow();
+                WindowManager.LayoutParams wlp = window.getAttributes();
+                wlp.gravity = Gravity.CENTER;
+                wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
+                window.setAttributes(wlp);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+
+                TextView btnConfimHenGio = dialog.findViewById(R.id.btnConfimHenGio);
+                Button btnGetTime = dialog.findViewById(R.id.btnGetTime);
+                final EditText edtGetSoPhut = dialog.findViewById(R.id.edtGetSoPhut);
+
+                btnConfimHenGio.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TIME_COUNT = Integer.parseInt(edtGetSoPhut.getText().toString().trim()) ;
+                        STATUS_TIMECOUNT = true;
+                        Toast.makeText(getActivity(), TIME_COUNT*60*1000+"", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
+
+                if (STATUS_TIMECOUNT == true){
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            mediaPlayer.pause();
+                        }
+                    },TIME_COUNT*60*1000);
+                    Log.e("Dialog","OK");
+                }
+
+            }
+        });
     }
 
     @Override
@@ -269,6 +344,18 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
     }
 
     @Override
+    public void btnLoop() {
+        if (STATUS_LOOP == false) {
+            STATUS_LOOP = true;
+            btnPlayerLoop.setColorFilter(getResources().getColor(R.color.colorText));
+            return;
+        } else {
+            STATUS_LOOP = false;
+            btnPlayerLoop.setColorFilter(getResources().getColor(R.color.colorWhile));
+        }
+    }
+
+    @Override
     public void playAudio(final Context context, final String location, final String artist, final String name, final String album, final String keylist, final int index) throws Exception {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.reset();
@@ -298,7 +385,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
                 mediaPlayerPresenter.SetTextBinding(name, artist, album, maxtime);
                 mediaPlayer.start();
 
-                CreateNotification.createNotification(getActivity(), mtitle, martist, R.drawable.ic_play_arrow_black_24dp, postion, sizelist);
+                CreateNotification.createNotification(getActivity(), mtitle, martist, R.drawable.ic_pause_black_24dp, postion, sizelist);
 
                 // TRUYỀN DỮ LIỆU SANG BOTTOM NAV PLAYER
                 Bundle bundle = new Bundle();
@@ -623,6 +710,9 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
                 case CreateNotification.ACTION_NEXT:
                     mediaPlayerPresenter.ClickNext();
                     break;
+
+                case CreateNotification.ACTION_LOOP:
+
             }
         }
     };
@@ -634,5 +724,10 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
             notificationManager.cancelAll();
         }
         getActivity().unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

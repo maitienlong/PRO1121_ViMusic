@@ -9,5 +9,6 @@ public interface LibraryView {
     void OpenAlbum();
     void OpenBaihat();
     void ScanSongTV();
+    void CheckAndUpdate();
 
 }

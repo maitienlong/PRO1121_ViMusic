@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,8 @@ import com.example.vimusic.ui.thuvien.playlist.PlaylistFragment.PlaylistFragment
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.GONE;
+
 public class ThuVienFragment extends Fragment implements LibraryView {
 
     private TextView btnOpenPlaylist, btnOpenNgheSi, btnOpenAlbum, btnOpenBaihat;
@@ -54,6 +58,14 @@ public class ThuVienFragment extends Fragment implements LibraryView {
     private LinearLayoutManager linearLayoutManager;
     private MediaPlayer mediaPlayer;
     private static final int MY_PERMISSION_REQUEST = 1;
+
+    private Button btnRescan;
+
+    private LinearLayout linearLayoutOK;
+    private LinearLayout linearLayoutNO;
+
+    private List<BaiHat> baiHatList;
+
 
     private FragmentThuvienBinding fragmentThuvienBinding;
 
@@ -79,8 +91,12 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         albumFragment = new AlbumFragment();
         baiHatFragment = new BaiHatFragment();
 
-        BindingModel bindingModel = new BindingModel();
+        linearLayoutOK = view.findViewById(R.id.linearLayoutOK);
+        linearLayoutNO = view.findViewById(R.id.linearLayoutNO);
 
+        btnRescan = view.findViewById(R.id.btnRescan);
+
+        BindingModel bindingModel = new BindingModel();
 
         libraryPresenter = new LibraryPresenter(this);
 
@@ -91,6 +107,8 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         btnScanSongTV = view.findViewById(R.id.btnScanSongTV);
         rvSong = view.findViewById(R.id.rvSong);
 
+        //------------------------------------------------------------------------------------------
+
         libraryPresenter.OpenPlaylist();
         libraryPresenter.OpenAlbum();
         libraryPresenter.OpenBaihat();
@@ -98,19 +116,35 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         libraryPresenter.ScanSongTV();
 
         fragmentThuvienBinding.setMainactivity(bindingModel);
+        linearLayoutOK.setVisibility(GONE);
+        scanmusic();
+        btnRescan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanmusic();
+            }
+        });
     }
 
 
     @Override
     public void doStuffs() {
         libraryPresenter.getMusics();
-        Toast.makeText(getActivity(), "Tìm kiếm nhạc thành công ", Toast.LENGTH_SHORT).show();
+
+        if (baiHatList.size() == 0) {
+            linearLayoutNO.setVisibility(View.VISIBLE);
+            btnRescan.setText("THỬ LẠI");
+        } else if (baiHatList.size() > 0) {
+            linearLayoutOK.setVisibility(View.VISIBLE);
+            linearLayoutNO.setVisibility(GONE);
+        }
+
     }
 
     @Override
     public void getMusics() {
 
-        List<BaiHat> baiHatList = new ArrayList<>();
+        baiHatList = new ArrayList<>();
 
         ContentResolver contentResolver = getActivity().getContentResolver();
 
@@ -126,25 +160,31 @@ public class ThuVienFragment extends Fragment implements LibraryView {
             int album = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
 
             do {
-                BaiHat baiHat = new BaiHat();
-                baiHat.location = cursor.getString(location);
-                baiHat.title = cursor.getString(title);
-                baiHat.artist = cursor.getString(artist);
-                baiHat.album = cursor.getString(album);
-                baiHat.love = false;
-                baiHatList.add(baiHat);
+                try {
+                    BaiHat baiHat = new BaiHat();
+                    baiHat.location = cursor.getString(location);
+                    baiHat.title = cursor.getString(title);
+                    baiHat.artist = cursor.getString(artist);
+                    baiHat.album = cursor.getString(album);
+                    baiHat.love = false;
+                    baiHatList.add(baiHat);
 
-                long result = baiHatDAO.insertBook(baiHat);
-
-                if (result > 0) {
-                    Log.e("DONE DATABASE", "OK");
-                } else {
-                    Log.e("DONE DATABASE", "FAIL");
+                    long result = baiHatDAO.insertSong(baiHat);
+                    if (result > 0) {
+                        Log.e("DONE DATABASE", "OK");
+                    } else {
+                        Log.e("DONE DATABASE", "FAIL");
+                    }
+                } catch (Exception e) {
+                    Log.e("Database", "DA CO");
                 }
+
+
             } while (cursor.moveToNext());
         }
 
     }
+
 
     @Override
     public void OpenPlaylist() {
@@ -189,7 +229,6 @@ public class ThuVienFragment extends Fragment implements LibraryView {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, baiHatFragment).commit();
             }
         });
-
     }
 
     @Override
@@ -198,21 +237,16 @@ public class ThuVienFragment extends Fragment implements LibraryView {
         btnScanSongTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-                    } else {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-                    }
-                } else {
-                    libraryPresenter.doStuffs();
-                }
-
+                scanmusic();
             }
         });
 
     }
+
+    @Override
+    public void CheckAndUpdate() {
+    }
+
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -230,5 +264,20 @@ public class ThuVienFragment extends Fragment implements LibraryView {
             }
         }
     }
+
+    private void scanmusic() {
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }
+        } else {
+
+            libraryPresenter.doStuffs();
+        }
+    }
+
 
 }

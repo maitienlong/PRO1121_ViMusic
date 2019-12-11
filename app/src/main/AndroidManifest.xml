@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".services.NotificationActionServices"/>
+        <service android:name=".services.onClearFormServices" />
+
     </application>
 
 </manifest>

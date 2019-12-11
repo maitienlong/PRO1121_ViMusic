@@ -31,7 +31,7 @@
 
                     android:layout_width="250dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginRight="16dp"
                     android:gravity="center_horizontal"
                     android:paddingTop="10dp"
@@ -39,8 +39,14 @@
                     android:textColor="#fff"
                     android:textSize="20dp" />
 
-
                 <ImageView
+                    android:id="@+id/btnHenGio"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="8dp"
+                    android:src="@drawable/alarm_clock" />
+                <ImageView
+                    android:id="@+id/btnMore"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="8dp"
@@ -49,6 +55,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/imgcover"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_gravity="center_horizontal"

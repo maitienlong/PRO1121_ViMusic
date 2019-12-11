@@ -29,7 +29,7 @@ public class BaiHatDAO {
         songReadDatabase = new SongReadDatabase(context);
     }
 
-    public long insertBook(BaiHat baiHat) {
+    public long insertSong(BaiHat baiHat) {
         SQLiteDatabase sqLiteDatabase = songReadDatabase.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

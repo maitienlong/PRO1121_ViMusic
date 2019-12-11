@@ -6,6 +6,7 @@ public interface MediaPlayerView {
     void btnNext() ;
     void btnPreview();
     void BtnPlay();
+    void btnLoop();
     void playAudio(Context context, String location, String artist, String name, String album, String keylist, int index) throws Exception;
     void PlayMedia();
     void PauseMedia();

@@ -8,13 +8,6 @@ public class WelcomePresenter {
         this.welcomeView = welcomeView;
     }
 
-    void DoStuff(){
-        welcomeView.DoStuff();
-    }
-
-    void getMusic(){
-     welcomeView.getMusic();
-    }
 
 
 }

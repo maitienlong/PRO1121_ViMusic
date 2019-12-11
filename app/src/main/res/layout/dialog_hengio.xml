@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#2d3436"
+    android:layout_height="200dp">
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#fff"
+        android:fontFamily="sans-serif-black"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:text="HẸN GIỜ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edtGetSoPhut"
+            android:layout_marginRight="8dp"
+            android:textColorHint="#fff"
+            android:hint="Nhập số phút"
+            android:layout_width="300dp"
+            android:layout_height="60dp"/>
+        <Button
+            android:id="@+id/btnGetTime"
+            android:textColor="#fff"
+            android:text="GET"
+            android:background="@color/colorText"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnConfimHenGio"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="bottom"
+        android:fontFamily="sans-serif-black"
+        android:textSize="23sp"
+        android:textColor="@color/colorText"
+        android:gravity="center"
+        android:text="Xác nhận"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

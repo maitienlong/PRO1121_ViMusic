@@ -76,11 +76,7 @@ public class ArtistDetailFragment extends Fragment implements ArtistView {
                 artistPresenter.SendMessage(position,name);
             }
         });
-
     }
-
-
-
     @Override
     public void SendMessage(int position, String namec) {
         Bundle bundle = new Bundle();

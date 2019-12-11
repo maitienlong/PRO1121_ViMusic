@@ -145,7 +145,7 @@ public class PlaylistFragment extends Fragment implements PlaylistView {
     public void ShowPlayList() {
         dovaolist = playListDAO.getAllPL();
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity(), linearLayoutManager.HORIZONTAL, false);
 
         adapterRecyclerViewPlayList = new AdapterRecyclerViewPlayList(getActivity(), dovaolist);
 

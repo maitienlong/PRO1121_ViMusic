@@ -40,4 +40,8 @@ public class MediaPlayerPresenter {
         mediaPlayerView.btnNext();
     }
 
+    void ClickLoop(){
+        mediaPlayerView.btnLoop();
+    }
+
 }
