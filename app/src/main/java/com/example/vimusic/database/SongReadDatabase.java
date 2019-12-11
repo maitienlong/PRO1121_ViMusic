@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SongReadDatabase extends SQLiteOpenHelper {
 
     public SongReadDatabase(Context context) {
-        super(context, "SQLiteVer11.db", null, 1);
+        super(context, "SQLiteVer12.db", null, 1);
     }
 
     public final static String T_SONG = "songTable";
@@ -32,11 +32,15 @@ public class SongReadDatabase extends SQLiteOpenHelper {
     public final static String T_ARTIST = "artistTable";
     public final static String C_NAMEARTITST = "nameartist";
 
+    public final static String T_HISTORY = "historyTable";
+    public final static String C_NAMEHIS = "namehistory";
+
     public final static String TABLE_SONG = "CREATE TABLE songTable (location NVARCHAR PRIMARY KEY, title NVARCHAR, artist NVARCHAR, album NVARCHAR, love BOOLEAN)";
     public final static String TABLE_PLAYLIST = "CREATE TABLE playlistTable (namepl NVARCHAR PRIMARY KEY, detail NVARCHAR)";
     public final static String TABLE_PLAYLSITCT = "CREATE TABLE playlistctTable (idplct INTEGER PRIMARY KEY AUTOINCREMENT, namepl NVARCHAR, location VARCHAR)";
     public final static String TABLE_ALBUM = "CREATE TABLE albumTable (namealbum NVARCHAR PRIMARY KEY)";
     public final static String TABLE_ARTIST = "CREATE TABLE artistTable (nameartist NVARCHAR PRIMARY KEY)";
+    public final static String TABLE_HISTORY = "CREATE TABLE historyTable (namehistory NVARCHAR PRIMARY KEY)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -45,6 +49,7 @@ public class SongReadDatabase extends SQLiteOpenHelper {
         db.execSQL(TABLE_PLAYLSITCT);
         db.execSQL(TABLE_ALBUM);
         db.execSQL(TABLE_ARTIST);
+        db.execSQL(TABLE_HISTORY);
 
 
     }

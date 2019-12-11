@@ -9,4 +9,12 @@ public class TimKiemPresenter {
         this.timKiemView = timKiemView;
     }
 
+    void dialogTotalSearch(){
+        timKiemView.dialogTotalSearch();
+    }
+
+    void showhistory(){
+        timKiemView.showhistory();
+    }
+
 }

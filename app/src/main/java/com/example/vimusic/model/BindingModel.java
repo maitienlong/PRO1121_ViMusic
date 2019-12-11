@@ -15,6 +15,7 @@ public class BindingModel {
     public String tvPlayerTotalTime;
     public String tvAlbumCT_TenAlbum;
     public String tvArtistCT_TenArtist;
+    public String tvRowHistory;
 
 
     public String tvplaylistrowTenAlbum() {

@@ -9,10 +9,12 @@
     </data>
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000"
         android:orientation="vertical">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -29,25 +31,20 @@
             android:layout_height="60dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            app:cardBackgroundColor="#636e72"
-            app:cardCornerRadius="30sp">
+            app:cardBackgroundColor="#2d3436"
+            app:cardCornerRadius="15dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtLIUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:hint="Tìm kiếm bài hát hoặc nghệ sĩ"
-                    android:inputType="textFilter"
-                    android:textColor="#fff" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginRight="8dp"
+                android:hint="Tìm kiếm bài hát hoặc nghệ sĩ"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
         </androidx.cardview.widget.CardView>
 
 
@@ -81,11 +78,12 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvhistory"
             android:layout_width="match_parent"
             android:layout_height="239dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp" />
+            android:layout_marginRight="8dp" />
 
     </LinearLayout>
 </layout>

@@ -577,6 +577,19 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
                 break;
 
+            case "search":
+                BaiHatDAO baiHatDAO2 = new BaiHatDAO(getActivity());
+
+                List<BaiHat> searchlist = baiHatDAO2.getAllSearch("'" + namec + "'");
+                sizelist = searchlist.size();
+                mlocation = searchlist.get(index).location;
+                mtitle = searchlist.get(index).title;
+                martist = searchlist.get(index).artist;
+                malbum = searchlist.get(index).album;
+                postion = index;
+
+                break;
+
         }
     }
 

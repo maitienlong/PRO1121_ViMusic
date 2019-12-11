@@ -17,6 +17,8 @@ import static com.example.vimusic.database.SongReadDatabase.C_ARTIST;
 import static com.example.vimusic.database.SongReadDatabase.C_LOACTION;
 import static com.example.vimusic.database.SongReadDatabase.C_LOVE;
 import static com.example.vimusic.database.SongReadDatabase.C_TITLE;
+import static com.example.vimusic.database.SongReadDatabase.T_PLAYLSIT;
+import static com.example.vimusic.database.SongReadDatabase.T_PLAYLSITCT;
 import static com.example.vimusic.database.SongReadDatabase.T_SONG;
 
 public class BaiHatDAO {
@@ -130,7 +132,28 @@ public class BaiHatDAO {
     }
 
 
+    public List<BaiHat> getAllSearch(String keysearch) {
 
+        List<BaiHat> baiHatList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = songReadDatabase.getReadableDatabase();
+
+        String SELECT = "SELECT location , title , artist FROM songTable WHERE title = " + keysearch;
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT, null);
+        if (cursor.moveToFirst()) {
+            do {
+                BaiHat baiHat = new BaiHat();
+                baiHat.location = cursor.getString(0);
+                baiHat.title = cursor.getString(1);
+                baiHat.artist = cursor.getString(2);
+                baiHatList.add(baiHat);
+            } while (cursor.moveToNext());
+        }
+
+        sqLiteDatabase.close();
+
+        return baiHatList;
+    }
 
 
 

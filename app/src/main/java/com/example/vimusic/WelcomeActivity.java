@@ -9,7 +9,6 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,8 +28,6 @@ import com.example.vimusic.model.BaiHat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
 
@@ -61,15 +58,11 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
         welcomePresenter = new WelcomePresenter(this);
         baiHatDAO = new BaiHatDAO(this);
 
-
         //----------------------------------------------------
+
         PhatHanh();
-
-        //------------
-
-
-        moving();
-        pcwelcom();
+        Moving();
+        PcWelcome();
 
         objectAnimator.setDuration(2000);
         objectAnimator.start();
@@ -91,13 +84,13 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeView {
         startActivity(intent);
     }
 
-    public void moving() {
+    public void Moving() {
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(logowelcome, "translationY", 0, -50f);
         objectAnimatorX.setDuration(1000);
         objectAnimatorX.start();
     }
 
-    private void pcwelcom() {
+    private void PcWelcome() {
         progressBar = findViewById(R.id.progressBarLoading);
         objectAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
     }
