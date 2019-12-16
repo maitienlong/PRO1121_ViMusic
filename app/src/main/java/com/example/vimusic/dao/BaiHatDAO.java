@@ -138,6 +138,28 @@ public class BaiHatDAO {
 
         SQLiteDatabase sqLiteDatabase = songReadDatabase.getReadableDatabase();
 
+        String SELECT = "SELECT location , title , artist FROM songTable WHERE title LIKE " + keysearch;
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT, null);
+        if (cursor.moveToFirst()) {
+            do {
+                BaiHat baiHat = new BaiHat();
+                baiHat.location = cursor.getString(0);
+                baiHat.title = cursor.getString(1);
+                baiHat.artist = cursor.getString(2);
+                baiHatList.add(baiHat);
+            } while (cursor.moveToNext());
+        }
+
+        sqLiteDatabase.close();
+
+        return baiHatList;
+    }
+    public List<BaiHat> getPlaySearch(String keysearch) {
+
+        List<BaiHat> baiHatList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = songReadDatabase.getReadableDatabase();
+
         String SELECT = "SELECT location , title , artist FROM songTable WHERE title = " + keysearch;
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT, null);
         if (cursor.moveToFirst()) {

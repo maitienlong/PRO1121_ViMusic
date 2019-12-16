@@ -126,7 +126,7 @@ public class TimKiemFragment extends Fragment implements TimKiemView {
         TextView totalsearchIsEmty = dialog.findViewById(R.id.totalsearchIsEmty);
 
 
-        List<BaiHat> baiHatList = baiHatDAO.getAllSearch("'" + edtSearch.getText().toString().trim() + "'");
+        final List<BaiHat> baiHatList = baiHatDAO.getAllSearch("'%" + edtSearch.getText().toString().trim() + "%'");
 
         if (baiHatList.size() > 0) {
             totalsearchIsEmty.setVisibility(View.GONE);

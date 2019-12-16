@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         //-------------------------------------------------------------------------------------------
 
-
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, thuVienFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.host_frame_mediaplayer, mediaPlayerFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.MediaPlayTAB, bottomMediaPlayerFragment).commit();

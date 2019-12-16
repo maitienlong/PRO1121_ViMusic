@@ -9,47 +9,117 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        app:cardBackgroundColor="#2d3436"
+        app:cardBackgroundColor="@color/cardview_dark_background"
         app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/linearLayout3"
+            <TextView
+                android:id="@+id/tvDialogtenBaiHat"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:gravity="center"
+                android:fontFamily="@font/tahomabd"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Tên bài hát"
+                android:textColor="#fff"
+                android:textSize="26sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/btnSetTime"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginRight="16dp"
-                    android:padding="10dp"
-                    android:src="@drawable/alarm_clock" />
+            <TextView
+                android:id="@+id/tvDialogtenCaSi"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/tahoma"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Tên ca sĩ"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDialogtenBaiHat" />
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:src="@drawable/heart" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDialogtenCaSi">
+
+                <LinearLayout
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/btnAddPlaylist"
+                        android:padding="16dp"
+                        android:src="@drawable/add_list"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <ImageView
+                        android:id="@+id/btnShare"
+                        android:padding="16dp"
+                        android:src="@drawable/share"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <ImageView
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <ImageView
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <ImageView
+                        android:layout_marginRight="16dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
             <TextView
+                android:id="@+id/btnClose"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/tahomabd"
                 android:gravity="center"
-                android:text="Đóng"
-                android:textColor="@color/colorText"
+                android:text="ĐÓNG"
+                android:textColor="#fdcb6e"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

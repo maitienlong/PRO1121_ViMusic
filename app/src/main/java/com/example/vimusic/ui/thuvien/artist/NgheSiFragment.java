@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,7 +85,7 @@ public class NgheSiFragment extends Fragment {
 
         rvartist.setAdapter(artistRVAdapter);
 
-        rvartist.setLayoutManager(linearLayoutManager);
+        rvartist.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         ArtistRVAdapter.ItemClickSupport.addTo(rvartist).setOnItemClickListener(new ArtistRVAdapter.ItemClickSupport.OnItemClickListener() {
             @Override

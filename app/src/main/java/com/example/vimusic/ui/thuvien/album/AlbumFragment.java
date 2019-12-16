@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import java.util.List;
 public class AlbumFragment extends Fragment {
     private RecyclerView rvalbum;
     private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
     private AlbumRVAdapter albumRVAdapter;
     private AlbumDAO albumDAO;
     private FragmentAlbumBinding fragmentAlbumBinding;
@@ -81,13 +83,13 @@ public class AlbumFragment extends Fragment {
         final List<Album> albumList1 = albumDAO.getAllAlbum();
 
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+
 
         albumRVAdapter = new AlbumRVAdapter(getActivity(), albumList1);
 
         rvalbum.setAdapter(albumRVAdapter);
 
-        rvalbum.setLayoutManager(linearLayoutManager);
+        rvalbum.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         AlbumRVAdapter.ItemClickSupport.addTo(rvalbum).setOnItemClickListener(new AlbumRVAdapter.ItemClickSupport.OnItemClickListener() {
             @Override

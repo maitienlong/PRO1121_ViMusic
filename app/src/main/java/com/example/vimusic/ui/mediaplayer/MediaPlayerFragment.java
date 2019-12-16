@@ -29,7 +29,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,24 +44,27 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vimusic.R;
+import com.example.vimusic.adapter.AdapterRecyclerViewAddPlayList;
 import com.example.vimusic.dao.AlbumDAO;
 import com.example.vimusic.dao.ArtistDAO;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.dao.PlayListCTDAO;
+import com.example.vimusic.dao.PlayListDAO;
 import com.example.vimusic.databinding.FragmentMediaplayerBinding;
 import com.example.vimusic.model.BaiHat;
 import com.example.vimusic.model.BindingModel;
+import com.example.vimusic.model.PlayList;
+import com.example.vimusic.model.PlayListChiTiet;
 import com.example.vimusic.notification.CreateNotification;
 import com.example.vimusic.services.onClearFormServices;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
@@ -77,8 +83,6 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
     private TextView tvPlayerTotalTime;
     private TextView tvPlayerCurrentTime;
-    private int TIME_COUNT;
-    private boolean STATUS_TIMECOUNT = false;
 
     private FragmentMediaplayerBinding fragmentMediaplayerBinding;
     private BottomMediaPlayerFragment bottomMediaPlayerFragment;
@@ -101,6 +105,9 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
 
     private boolean STATUS_LOOP = false;
+    private int TIMER = 0;
+    private boolean STATUS_TIMER = false;
+
 
     private NotificationManager notificationManager;
 
@@ -174,6 +181,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
         }
 
+
 // ------------------ KHU VỰC XỬ LÝ SỰ KIỆN BTN PLAY------------------------------------------------
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,12 +227,122 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         });
 
 
-
+        if (mediaPlayer == null) {
+            btnHenGio.setVisibility(View.GONE);
+            btnMore.setVisibility(View.GONE);
+        } else if (mediaPlayer != null) {
+            btnHenGio.setVisibility(View.VISIBLE);
+            btnHenGio.setVisibility(View.VISIBLE);
+        }
         //------------------- XỬ SỬ KIỆN THÊM ------------
 
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_moreoption);
+
+                Window window = dialog.getWindow();
+                WindowManager.LayoutParams wlp = window.getAttributes();
+                wlp.gravity = Gravity.CENTER;
+                wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
+                window.setAttributes(wlp);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+
+                TextView tvDialogtenBaiHat = dialog.findViewById(R.id.tvDialogtenBaiHat);
+                TextView tvDialogtenCaSi = dialog.findViewById(R.id.tvDialogtenCaSi);
+                ImageView btnShare = dialog.findViewById(R.id.btnShare);
+                ImageView btnAddPlaylist = dialog.findViewById(R.id.btnAddPlaylist);
+                TextView btnClose = dialog.findViewById(R.id.btnClose);
+                btnAddPlaylist.setColorFilter(getResources().getColor(R.color.colorText));
+                btnShare.setColorFilter(getResources().getColor(R.color.colorText));
+
+
+                tvDialogtenBaiHat.setText(mtitle);
+                tvDialogtenCaSi.setText(martist);
+
+                btnAddPlaylist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(getActivity());
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.dialog_themplaylist);
+
+                        Window window = dialog.getWindow();
+                        WindowManager.LayoutParams wlp = window.getAttributes();
+                        wlp.gravity = Gravity.CENTER;
+                        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
+                        window.setAttributes(wlp);
+                        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+
+                        TextView btndialogplhhuy = dialog.findViewById(R.id.btndialogplhhuy);
+
+                        LinearLayoutManager linearLayoutManager;
+                        final PlayListCTDAO playListCTDAO = new PlayListCTDAO(getActivity());
+                        RecyclerView rvdialogplaylist = dialog.findViewById(R.id.rvdialogplaylist);
+                        AdapterRecyclerViewAddPlayList adapterRecyclerViewAddPlayList;
+                        PlayListDAO playListDAO = new PlayListDAO(getActivity());
+                        final List<PlayList> playListList = playListDAO.getAllPL();
+
+                        btndialogplhhuy.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        linearLayoutManager = new LinearLayoutManager(getActivity());
+                        adapterRecyclerViewAddPlayList = new AdapterRecyclerViewAddPlayList(getActivity(), playListList);
+                        rvdialogplaylist.setAdapter(adapterRecyclerViewAddPlayList);
+                        rvdialogplaylist.setLayoutManager(linearLayoutManager);
+                        AdapterRecyclerViewAddPlayList.ItemClickSupport.addTo(rvdialogplaylist).setOnItemClickListener(new AdapterRecyclerViewAddPlayList.ItemClickSupport.OnItemClickListener() {
+                            @Override
+                            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                                List<BaiHat> playlistct = playListCTDAO.getAllPlaylistCT("'" + playListList.get(position).nameplaylist + "'");
+
+                                for (int i = 0; i< playlistct.size(); i++){
+                                    if (playlistct.get(i).location.equals(mlocation)){
+                                        Toast.makeText(getActivity(), "Bài hát đã có trong Playlist", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+
+                                try {
+                                    List<PlayListChiTiet> playListChiTietList = new ArrayList<>();
+                                    PlayListChiTiet playListChiTiet = new PlayListChiTiet();
+                                    playListChiTiet.namepl = playListList.get(position).nameplaylist;
+                                    playListChiTiet.location = mlocation;
+                                    playListChiTietList.add(playListChiTiet);
+                                    long re = playListCTDAO.insertPlayListCT(playListChiTiet);
+                                    if (re > 0){
+                                        Toast.makeText(getActivity(), "Đã thêm Bài hát vào Playlist "+playListList.get(position).nameplaylist, Toast.LENGTH_SHORT).show();
+                                        dialog.cancel();
+                                    }else {
+                                        Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                } catch (Exception e) {
+                                    Toast.makeText(getActivity(), e + "", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
             }
         });
 
@@ -246,31 +364,93 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.show();
 
-                TextView btnConfimHenGio = dialog.findViewById(R.id.btnConfimHenGio);
-                Button btnGetTime = dialog.findViewById(R.id.btnGetTime);
                 final EditText edtGetSoPhut = dialog.findViewById(R.id.edtGetSoPhut);
+                ImageView btnGetTime = dialog.findViewById(R.id.btnGetTimer);
+                btnGetTime.setColorFilter(getResources().getColor(R.color.colorWhile));
+                TextView btnConfimHenGio = dialog.findViewById(R.id.btnConfimHenGio);
+                final Switch btnStatusTimer = dialog.findViewById(R.id.btnStatusTimer);
+                RadioGroup chooseButton = dialog.findViewById(R.id.RadioTimer);
 
-                btnConfimHenGio.setOnClickListener(new View.OnClickListener() {
+                btnGetTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TIME_COUNT = Integer.parseInt(edtGetSoPhut.getText().toString().trim()) ;
-                        STATUS_TIMECOUNT = true;
-                        Toast.makeText(getActivity(), TIME_COUNT*60*1000+"", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
+                        Calendar mcurrentTime = Calendar.getInstance();
+                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = mcurrentTime.get(Calendar.MINUTE);
+                        TimePickerDialog mTimePicker;
+                        mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                edtGetSoPhut.setText(selectedHour * 60 + selectedMinute + "");
+                                edtGetSoPhut.setSelection(edtGetSoPhut.getText().length());
+                            }
+                        }, hour, minute, true);
+                        mTimePicker.setTitle("Select Time");
+                        mTimePicker.show();
                     }
                 });
 
-                if (STATUS_TIMECOUNT == true){
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            mediaPlayer.pause();
-                        }
-                    },TIME_COUNT*60*1000);
-                    Log.e("Dialog","OK");
-                }
+                chooseButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
 
+                        int checkedRadioId = group.getCheckedRadioButtonId();
+
+                        switch (checkedRadioId) {
+                            case R.id.rdo5m:
+                                edtGetSoPhut.setText("5");
+                                edtGetSoPhut.setSelection(edtGetSoPhut.getText().length());
+                                break;
+                            case R.id.rdo10m:
+                                edtGetSoPhut.setText("10");
+                                edtGetSoPhut.setSelection(edtGetSoPhut.getText().length());
+                                break;
+                            case R.id.rdo15m:
+                                edtGetSoPhut.setText("15");
+                                edtGetSoPhut.setSelection(edtGetSoPhut.getText().length());
+                                break;
+                            case R.id.rdo20m:
+                                edtGetSoPhut.setText("20");
+                                edtGetSoPhut.setSelection(edtGetSoPhut.getText().length());
+                                break;
+                        }
+                    }
+                });
+
+
+                if (STATUS_TIMER == true) {
+                    btnStatusTimer.setChecked(true);
+                } else {
+                    btnStatusTimer.setChecked(false);
+                }
+                btnConfimHenGio
+                        .setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    if (btnStatusTimer.isChecked()) {
+                                                        if (!mediaPlayer.isPlaying() && mediaPlayer == null) {
+                                                            Toast.makeText(getActivity(), "Nhạc đang tạm dừng", Toast.LENGTH_SHORT).show();
+                                                            return;
+                                                        } else if (edtGetSoPhut.getText().toString().trim().equals("")) {
+                                                            edtGetSoPhut.setError("Nhập số phút");
+                                                            return;
+                                                        } else {
+                                                            TIMER = Integer.parseInt(edtGetSoPhut.getText().toString().trim());
+                                                            Timer(true);
+                                                            STATUS_TIMER = true;
+                                                            Toast.makeText(getActivity(), STATUS_TIMER + "", Toast.LENGTH_SHORT).show();
+                                                            dialog.cancel();
+                                                        }
+
+                                                    } else if (!btnStatusTimer.isChecked()) {
+                                                        Timer(false);
+                                                        STATUS_TIMER = false;
+                                                        Toast.makeText(getActivity(), STATUS_TIMER + "", Toast.LENGTH_SHORT).show();
+                                                        dialog.cancel();
+                                                    }
+                                                }
+                                            }
+                        );
             }
         });
     }
@@ -666,8 +846,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
 
             case "search":
                 BaiHatDAO baiHatDAO2 = new BaiHatDAO(getActivity());
-
-                List<BaiHat> searchlist = baiHatDAO2.getAllSearch("'" + namec + "'");
+                List<BaiHat> searchlist = baiHatDAO2.getAllSearch("'%" + namec + "%'");
                 sizelist = searchlist.size();
                 mlocation = searchlist.get(index).location;
                 mtitle = searchlist.get(index).title;
@@ -716,6 +895,25 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
             }
         }
     };
+
+    public void Timer(boolean Status) {
+        Handler handler = new Handler();
+        Runnable stopPlaybackRun = new Runnable() {
+            public void run() {
+                PauseMedia();
+                STATUS_TIMER = false;
+            }
+        };
+
+        if (Status == true) {
+            handler.postDelayed(stopPlaybackRun, TIMER * 60000);
+        } else if (Status == false) {
+            STATUS_TIMER = false;
+            handler.removeCallbacks(stopPlaybackRun);
+        }
+
+
+    }
 
     @Override
     public void onDestroy() {
