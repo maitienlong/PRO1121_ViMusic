@@ -54,6 +54,7 @@ import com.example.vimusic.dao.ArtistDAO;
 import com.example.vimusic.dao.BaiHatDAO;
 import com.example.vimusic.dao.PlayListCTDAO;
 import com.example.vimusic.dao.PlayListDAO;
+import com.example.vimusic.database.FirebaseDatabaseHelperMusic;
 import com.example.vimusic.databinding.FragmentMediaplayerBinding;
 import com.example.vimusic.model.BaiHat;
 import com.example.vimusic.model.BindingModel;
@@ -782,7 +783,7 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
         return false;
     }
 
-    public void scanplaylist(String keylist, int index) {
+    public void scanplaylist(String keylist, final int index) {
         switch (keylist) {
             case "baihatlist":
                 BaiHatDAO baiHatDAO = new BaiHatDAO(getActivity());
@@ -854,6 +855,16 @@ public class MediaPlayerFragment extends Fragment implements MediaPlayerView {
                 malbum = searchlist.get(index).album;
                 postion = index;
 
+                break;
+
+            case "khampha":
+                Bundle bundle = getArguments();
+                sizelist = 1;
+                mlocation =  bundle.getString("location");
+                mtitle = bundle.getString("title");
+                martist = bundle.getString("artist");
+                malbum = bundle.getString("album");
+                postion = 0;
                 break;
 
         }
