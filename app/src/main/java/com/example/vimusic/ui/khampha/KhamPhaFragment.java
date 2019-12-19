@@ -67,8 +67,6 @@ private FragmentKhamphaBinding fragmentKhamphaBinding;
                         bundle.putString("artist", baiHatList.get(position).artist);
                         bundle.putString("album", baiHatList.get(position).album);
 
-                        Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
-
                         MediaPlayerFragment mediaPlayerFragment = new MediaPlayerFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

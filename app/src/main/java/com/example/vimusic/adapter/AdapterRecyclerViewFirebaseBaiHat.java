@@ -35,7 +35,7 @@ public class AdapterRecyclerViewFirebaseBaiHat extends RecyclerView.Adapter<Adap
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int i) {
-        itemHolder.bind(baiHatList.get(i), keys.get(i));
+        itemHolder.bind(baiHatList.get(i), keys.get(i),i);
     }
 
     @Override
@@ -46,19 +46,22 @@ public class AdapterRecyclerViewFirebaseBaiHat extends RecyclerView.Adapter<Adap
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvFirebaseTitle, tvFirebaseArtist;
+        public TextView tvFirebaseTitle, tvFirebaseArtist, tvindex;
         private String key;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             tvFirebaseTitle = itemView.findViewById(R.id.tvFirebaseTitle);
             tvFirebaseArtist = itemView.findViewById(R.id.tvFirebaseArtist);
+            tvindex = itemView.findViewById(R.id.tvindex);
 
         }
 
-        public void bind(BaiHat baiHat, String key) {
+        public void bind(BaiHat baiHat, String key, int position) {
+            int index = position + 1;
             tvFirebaseTitle.setText(baiHat.getTitle());
             tvFirebaseArtist.setText(baiHat.getArtist());
+            tvindex.setText("#"+index);
             this.key = key;
         }
     }

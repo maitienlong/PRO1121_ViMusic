@@ -15,23 +15,17 @@ import java.util.List;
 public class FirebaseDatabaseHelperMusic {
     private FirebaseDatabase mDatabaseHelper;
     private DatabaseReference databaseReference;
-
     List<BaiHat> baiHatList = new ArrayList<>();
-
     public interface Datastatus{
         void DataIsLoaded(List<BaiHat> baiHatList, List<String> keys);
         void DataIsInserted();
         void DataIsUpdated();
         void DataIsDeleted();
     }
-
-
     public FirebaseDatabaseHelperMusic() {
         mDatabaseHelper = FirebaseDatabase.getInstance();
         databaseReference = mDatabaseHelper.getReference("songTable");
-
     }
-
     public void readSong(final Datastatus datastatus){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -45,7 +39,6 @@ public class FirebaseDatabaseHelperMusic {
                 }
                 datastatus.DataIsLoaded(baiHatList, keys);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

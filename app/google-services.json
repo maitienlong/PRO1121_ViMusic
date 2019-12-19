@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570727383862",
+    "firebase_url": "https://vimusic-35fed.firebaseio.com",
+    "project_id": "vimusic-35fed",
+    "storage_bucket": "vimusic-35fed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570727383862:android:e060a6cd80286dec782997",
+        "android_client_info": {
+          "package_name": "com.example.vimusic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570727383862-ppdno5j8c4mgv4m7g0o0aj8gmjrr8oqb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vimusic",
+            "certificate_hash": "df66a7de2ffc1fd0212f066e525c568861d40c2b"
+          }
+        },
+        {
+          "client_id": "570727383862-7i8r0bvapes9lh5m8pk752i5kipc70rc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFwN0x2f07lBQg9fSQxFXTumxohPvrG9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570727383862-7i8r0bvapes9lh5m8pk752i5kipc70rc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

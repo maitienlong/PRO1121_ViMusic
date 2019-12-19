@@ -2,11 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<data>
-    <variable
-        name="mainactivity"
-        type="com.example.vimusic.model.BindingModel" />
-</data>
+    <data>
+
+        <variable
+            name="mainactivity"
+            type="com.example.vimusic.model.BindingModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,38 +25,45 @@
             android:textColor="@color/colorWhile"
             android:textSize="38sp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="700dp">
 
-            <TextView
-                android:gravity="center"
-                android:fontFamily="@font/sandisplayblack"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:text="THỊNH HÀNH VIỆT NAM"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="15dp"
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="#b2bec3"
-                android:layout_height="480dp">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvKhamPha"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sandisplayblack"
+                    android:gravity="center"
+                    android:text="THỊNH HÀNH VIỆT NAM"
+                    android:textColor="#fff"
+                    android:textSize="20sp" />
 
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="#b2bec3"
+                    app:cardCornerRadius="15dp">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvKhamPha"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+        </ScrollView>
     </LinearLayout>
 
 

@@ -18,34 +18,22 @@ import static com.example.vimusic.database.SongReadDatabase.T_PLAYLSIT;
 
 public class PlayListDAO {
     private SongReadDatabase songReadDatabase;
-
     public PlayListDAO(Context context) {
         songReadDatabase = new SongReadDatabase(context);
     }
-
     public long insertPlayList(PlayList playList) {
         SQLiteDatabase sqLiteDatabase = songReadDatabase.getWritableDatabase();
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(C_NAMEPLAYLIST, playList.nameplaylist);
         contentValues.put(C_DETAIL, playList.detail);
-
-
         long result = sqLiteDatabase.insert(T_PLAYLSIT, null, contentValues);
-
         sqLiteDatabase.close();
-
         return result;
     }
-
     public List<PlayList> getAllPL() {
-
         List<PlayList> playListList = new ArrayList<>();
-
         SQLiteDatabase sqLiteDatabase = songReadDatabase.getReadableDatabase();
-
         String SELECT = "SELECT * FROM " + T_PLAYLSIT;
-
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT, null);
         if (cursor.moveToFirst()) {
             do {
@@ -55,9 +43,7 @@ public class PlayListDAO {
                 playListList.add(playList);
             } while (cursor.moveToNext());
         }
-
         sqLiteDatabase.close();
-
         return playListList;
     }
 
